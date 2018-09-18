@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+    <ul class="nav navbar-nav">
+        {# Django Home Link / Admin Link / Register Link #}
+        <li><a class="navbar-brand" href="{% url 'index' %}">Pet Pals!</a></li>
+        <li><a class="navbar-link" href="{% url 'register' %}">Register</a></li>     
+        {# Some logic on what to display for last item#}
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'user_login' %}">Login</a></li>
+    
+        {% endif %}
+    </ul>
+    </div>
+</nav>
+<div class="container">
+{% block content %}
+{% endblock %}
+
+<!-- {% block profile_create %}
+{% endblock %} -->
+</div>
+</body>
+</html>
