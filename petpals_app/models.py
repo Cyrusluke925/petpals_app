@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3b692c875f9f68ec964ed6e3df883ee8389b3811
 # Create your models here.
 
 class UserProfileInfo(models.Model):
