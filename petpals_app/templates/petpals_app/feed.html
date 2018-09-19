@@ -6,10 +6,12 @@
       {% for post in posts %}
       
         <li>
-            {{post.image}} <br>
+           <img src="{{post.image.url}}" width="300px"><br>
             {{post.caption}}
             <hr>
         </li>
       {% endfor %}
   </ul>
 {% endblock %}
+
+
