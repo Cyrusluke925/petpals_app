@@ -9,7 +9,7 @@ class UserProfileInfo(models.Model):
     profile_picture = models.ImageField(blank=True, upload_to=settings.MEDIA_ROOT)
     breed = models.CharField(max_length=40, blank=True)
     age = models.IntegerField(blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 #make onetoone later
     def __str__(self):
         return self.user.username
