@@ -5,9 +5,17 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import User, UserProfileInfo
 
+#for image upload
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
 
 def index(request):
     return render(request, 'petpals_app/index.html')
+
+#test page
+def test(request):
+    return render(request, 'petpals_app/test.html')
 
 @login_required
 def special(request):
@@ -48,7 +56,7 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 #need to change the path for this redirect to base/feed when we create the template
-                return redirect('index')
+                return redirect('petpals_app/test.html')
             else: 
                 return HttpResponse('Your account is inactive.')
         else:
@@ -66,16 +74,22 @@ def profile_create(request):
     print(request.user)
     print('entered profile create')
     #add registered false and true
-    if request.method == "POST":
+    if request.method == "POST" and request.FILES['profile_picture']:
         print('method is a post ')
+        
         profile_form = UserProfileInfoForm(data=request.POST)
+
         if profile_form.is_valid():
+            profile_picture = request.FILES['profile_picture']
+            fs = FileSystemStorage()
+            filename = fs.save(profile_picture.name, profile_picture)
+            uploaded_file_url = fs.url(filename)
             profile = profile_form.save(commit=False)
             profile.user = request.user
             profile.save()
             
             #make a redirect to profile_view
-            return redirect('index')
+            return render(request, 'petpals_app/test.html', {'uploaded_file_url': uploaded_file_url})
         else: 
             print(profile_form.errors)
     else:
