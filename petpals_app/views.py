@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from petpals_app.forms import UserForm, UserProfileInfoForm
+from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import User, UserProfileInfo
+from django.utils import timezone
+from .models import User, UserProfileInfo, Post
 
 
 def index(request):
@@ -83,5 +84,19 @@ def profile_create(request):
     print('about to render')
     return render(request, 'petpals_app/profile_create.html', {'form': form})
 
-
+@login_required
+def post_create(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.caption = form.cleaned_data.get('caption')
+            form.image = form.cleaned_data.get('image')
+            form.created_at = timezone.datetime.now()
+            form.user = request.user
+            form.save()
+        else: 
+            return render(request,'petpals_app/post.html'),{'Error': 'There was an error with your post. Please re-upload image.'}
+    else: 
+        form = PostForm()
+        return render(request,'petpals_app/post.html', {'form':form})
 
