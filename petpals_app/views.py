@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from petpals_app.forms import UserForm, UserProfileInfoForm
+from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import User, UserProfileInfo
+from django.utils import timezone
+from .models import User, UserProfileInfo, Post
 
 #for image upload
 from django.conf import settings
@@ -90,12 +91,34 @@ def profile_create(request):
     print('about to render')
     return render(request, 'petpals_app/profile_create.html', {'form': form})
 
+@login_required
+def feed(request):
+    posts = Post.objects.order_by('-created_at')
+    return render(request,'petpals_app/feed.html', {'posts':posts})
 
 def profile_view(request):
     user = request.user
     print(f'the user is {request.user}')
-   
     return render(request, 'petpals_app/profile_view.html', {'user': user})
 
 
-
+@login_required
+def post_create(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            caption = form.cleaned_data.get('caption')
+            created_at = timezone.datetime.now()
+            if 'image' in request.FILES:
+                image = form.cleaned_data.get('image')
+                image=request.FILES['image']
+            post = Post(caption=caption, image=image, created_at=created_at,user=request.user)
+            print(post)
+            post.save()
+            return redirect('feed')
+        else: 
+            print('form invalid')
+            # return render(request,'petpals_app/post.html'),{'Error': 'There was an error with your post. Please re-upload image.'}
+    else: 
+        form = PostForm()
+        return render(request,'petpals_app/post.html', {'form':form})

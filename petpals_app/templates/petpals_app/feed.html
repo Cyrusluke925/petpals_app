@@ -1,0 +1,15 @@
+{% extends "petpals_app/base.html" %}
+
+
+{% block content %}
+  <ul>
+      {% for post in posts %}
+      
+        <li>
+            {{post.image}} <br>
+            {{post.caption}}
+            <hr>
+        </li>
+      {% endfor %}
+  </ul>
+{% endblock %}
