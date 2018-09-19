@@ -29,7 +29,9 @@ def register(request):
             user.set_password(user.password)
             user.save()
             registered = True
-            return redirect('index')
+
+            login(request, user)
+            return redirect('profile_create')
         else: 
             print(user_form.errors)
     else: 
@@ -56,3 +58,30 @@ def user_login(request):
     else:
         #We might need to change the path when we create this form
         return render(request, 'petpals_app/login.html', {})
+
+
+
+#LOGIN REQUIRED IF TIME
+def profile_create(request):
+    print(request.user)
+    print('entered profile create')
+    #add registered false and true
+    if request.method == "POST":
+        print('method is a post ')
+        profile_form = UserProfileInfoForm(data=request.POST)
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            
+            #make a redirect to profile_view
+            return redirect('index')
+        else: 
+            print(profile_form.errors)
+    else:
+        form = UserProfileInfoForm()
+    print('about to render')
+    return render(request, 'petpals_app/profile_create.html', {'form': form})
+
+
+
