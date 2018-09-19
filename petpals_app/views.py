@@ -5,9 +5,14 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import User, UserProfileInfo
 
+#for image upload
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
 
 def index(request):
     return render(request, 'petpals_app/index.html')
+
 
 @login_required
 def special(request):
@@ -29,7 +34,9 @@ def register(request):
             user.set_password(user.password)
             user.save()
             registered = True
-            return redirect('index')
+
+            login(request, user)
+            return redirect('profile_create')
         else: 
             print(user_form.errors)
     else: 
@@ -56,3 +63,39 @@ def user_login(request):
     else:
         #We might need to change the path when we create this form
         return render(request, 'petpals_app/login.html', {})
+
+
+
+#LOGIN REQUIRED IF TIME
+def profile_create(request):
+    print(request.user)
+    print('entered profile create')
+    #add registered false and true
+    if request.method == "POST":
+        print('method is a post ')
+        
+        profile_form = UserProfileInfoForm(request.POST, request.FILES)
+
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            
+            #make a redirect to profile_view
+            return render(request, 'petpals_app/profile_view.html')
+        else: 
+            print(profile_form.errors)
+    else:
+        form = UserProfileInfoForm()
+    print('about to render')
+    return render(request, 'petpals_app/profile_create.html', {'form': form})
+
+
+def profile_view(request):
+    user = request.user
+    print(f'the user is {request.user}')
+   
+    return render(request, 'petpals_app/profile_view.html', {'user': user})
+
+
+

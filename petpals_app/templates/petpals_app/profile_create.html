@@ -1,0 +1,18 @@
+{% extends "petpals_app/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <input type="text" name='name'>
+    <input type="text" name='breed'>
+    <input type="number" name="age">
+    <textarea name='bio'></textarea>
+    <input type='file' name='profile_picture'>
+    <input type="submit" name="" value="Create Profile">
+  </form>
+
+
+
+  {% endblock %}
+
