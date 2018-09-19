@@ -89,11 +89,15 @@ def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.caption = form.cleaned_data.get('caption')
-            form.image = form.cleaned_data.get('image')
-            form.created_at = timezone.datetime.now()
-            form.user = request.user
-            form.save()
+            caption = form.cleaned_data.get('caption')
+            created_at = timezone.datetime.now()
+            if 'image' in request.FILES:
+                image = form.cleaned_data.get('image')
+                image=request.FILES['image']
+            post = Post(caption=caption, image=image, created_at=created_at,user=request.user)
+            print(post)
+            post.save()
+            return render(request,'petpals_app/post.html', {'form':form})
         else: 
             return render(request,'petpals_app/post.html'),{'Error': 'There was an error with your post. Please re-upload image.'}
     else: 
