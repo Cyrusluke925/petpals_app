@@ -13,9 +13,6 @@ from django.core.files.storage import FileSystemStorage
 def index(request):
     return render(request, 'petpals_app/index.html')
 
-#test page
-def test(request):
-    return render(request, 'petpals_app/test.html')
 
 @login_required
 def special(request):
@@ -56,7 +53,7 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 #need to change the path for this redirect to base/feed when we create the template
-                return redirect('petpals_app/test.html')
+                return redirect('index')
             else: 
                 return HttpResponse('Your account is inactive.')
         else:
@@ -89,7 +86,7 @@ def profile_create(request):
             profile.save()
             
             #make a redirect to profile_view
-            return render(request, 'petpals_app/test.html', {'uploaded_file_url': uploaded_file_url})
+            return render(request, 'petpals_app/index.html', {'uploaded_file_url': uploaded_file_url})
         else: 
             print(profile_form.errors)
     else:
