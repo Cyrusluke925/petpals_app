@@ -85,6 +85,11 @@ def profile_create(request):
     return render(request, 'petpals_app/profile_create.html', {'form': form})
 
 @login_required
+def feed(request):
+    posts = Post.objects.order_by('-created_at')
+    return render(request,'petpals_app/feed.html', {'posts':posts})
+
+@login_required
 def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -97,9 +102,10 @@ def post_create(request):
             post = Post(caption=caption, image=image, created_at=created_at,user=request.user)
             print(post)
             post.save()
-            return render(request,'petpals_app/post.html', {'form':form})
+            return redirect('feed')
         else: 
-            return render(request,'petpals_app/post.html'),{'Error': 'There was an error with your post. Please re-upload image.'}
+            print('form invalid')
+            # return render(request,'petpals_app/post.html'),{'Error': 'There was an error with your post. Please re-upload image.'}
     else: 
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})

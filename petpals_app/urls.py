@@ -9,5 +9,6 @@ urlpatterns = [
     path('login', views.user_login, name='user_login'),
     path('profilecreate', views.profile_create, name='profile_create'),
     path('post/new', views.post_create, name='post_create'),
+    path('feed', views.feed, name='feed'),
     # url(r'^user/(?P<fk>[0-9]+)', views.post_create, name='post_create'),
 ]
