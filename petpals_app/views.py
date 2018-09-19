@@ -71,28 +71,31 @@ def profile_create(request):
     print(request.user)
     print('entered profile create')
     #add registered false and true
-    if request.method == "POST" and request.FILES['profile_picture']:
+    if request.method == "POST":
         print('method is a post ')
         
-        profile_form = UserProfileInfoForm(data=request.POST)
+        profile_form = UserProfileInfoForm(request.POST, request.FILES)
 
         if profile_form.is_valid():
-            profile_picture = request.FILES['profile_picture']
-            fs = FileSystemStorage()
-            filename = fs.save(profile_picture.name, profile_picture)
-            uploaded_file_url = fs.url(filename)
             profile = profile_form.save(commit=False)
             profile.user = request.user
             profile.save()
             
             #make a redirect to profile_view
-            return render(request, 'petpals_app/index.html', {'uploaded_file_url': uploaded_file_url})
+            return render(request, 'petpals_app/profile_view.html')
         else: 
             print(profile_form.errors)
     else:
         form = UserProfileInfoForm()
     print('about to render')
     return render(request, 'petpals_app/profile_create.html', {'form': form})
+
+
+def profile_view(request):
+    user = request.user
+    print(f'the user is {request.user}')
+   
+    return render(request, 'petpals_app/profile_view.html', {'user': user})
 
 
 
