@@ -3,7 +3,14 @@
 {% block profile_view %}
 <h1>{{user.username}}</h1>
 <img src="{{ user.profile.profile_picture.url }}" width="250px" alt="" class="artist-photo">
-<h2>{{ profile.breed }}</h2>
+<p>Name: {{ user.profile.name }}</p>
+<p>Age: {{ user.profile.age }}</p>
+<p>Breed: {{ user.profile.breed }}</p>
+<p>Bio: {{ user.profile.bio }}</p>
 
+{% for post in posts %}
+hello
+{{ user.post.image }}
+{% endfor %}
 
 {% endblock %}

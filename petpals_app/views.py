@@ -109,6 +109,7 @@ def post_create(request):
     else: 
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})
+
 @login_required
 def feed(request): 
     if request.method == 'POST':
