@@ -1,10 +1,9 @@
 {% extends 'petpals_app/base.html' %}
 
 {% block profile_view %}
-
-<h1>you are on the profile view page</h1>
-<img src="{{ user.profile.profile_picture.url }}" width="500px" alt="" class="artist-photo">
 <h1>{{user.username}}</h1>
-<h1>{{user.email}}</h1>
+<img src="{{ user.profile.profile_picture.url }}" width="250px" alt="" class="artist-photo">
+
+
 
 {% endblock %}

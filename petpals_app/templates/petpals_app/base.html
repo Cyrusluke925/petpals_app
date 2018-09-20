@@ -18,6 +18,7 @@
         <li><a class="navbar-brand" href="{% url 'index' %}">Pet Pals!</a></li>
         <li><a class="navbar-link" href="{% url 'register' %}">Register</a></li> 
         <li><a class="navbar-brand" href="{% url 'feed' %}">Feed</a></li>
+        <li><a class="navbar-brand" href="{% url 'explore' %}">Explore</a></li>
     
         {# Some logic on what to display for last item#}
         {% if user.is_authenticated %}

@@ -61,8 +61,6 @@ def user_login(request):
 
 @login_required
 def profile_create(request):
-    print(request.user)
-    print('entered profile create')
     #add registered false and true
     if request.method == "POST":
         print('method is a post ')
@@ -127,3 +125,8 @@ def feed(request):
         posts = Post.objects.order_by('-created_at')
         form = CommentForm()
         return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
+
+@login_required
+def explore(request):
+    posts = Post.objects.all
+    return render(request,'petpals_app/explore.html', {'posts':posts})

@@ -11,5 +11,5 @@ urlpatterns = [
     path('profile', views.profile_view, name="profile_view"),
     path('post/new', views.post_create, name='post_create'),
     path('feed', views.feed, name='feed'),
-    # url(r'^user/(?P<fk>[0-9]+)', views.post_create, name='post_create'),
+    path('explore', views.explore, name='explore'),
 ]
