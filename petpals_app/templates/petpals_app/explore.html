@@ -1,15 +1,30 @@
 {% extends "petpals_app/base.html" %}
 
 {% block content %}
+<li><a class="navbar-brand" href="{% url 'post_create' %}">New Post</a></li>
   <ul>
-      {% for post in posts %}
-        <hr>
-        <li>
+      {% for photo in photos %}
+        
            <img src="{{post.image.url}}" width="300px"><br>
-            {{post.caption}}
-        </li>
-       
       {% endfor %}
+
+      <div class="pagination">
+          <span class="step-links">
+              {% if photos.has_previous %}
+                  <a href="?page=1">&laquo; First</a>
+                  <a href="?page={{ photos.previous_page_number }}">Previous</a>
+              {% endif %}
+      
+              <span class="current">
+                  Page {{ photos.number }} of {{ photos.paginator.num_pages }}.
+              </span>
+      
+              {% if photos.has_next %}
+                  <a href="?page={{ photos.next_page_number }}">Next</a>
+                  <a href="?page={{ photos.paginator.num_pages }}">Last &raquo;</a>
+              {% endif %}
+          </span>
+      </div>
  
 {% endblock %}
 

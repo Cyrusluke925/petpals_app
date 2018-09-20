@@ -5,6 +5,9 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import User, UserProfileInfo, Post, Comment
+#for pagination
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import render
 
 #for image upload
 from django.conf import settings
@@ -128,5 +131,10 @@ def feed(request):
 
 @login_required
 def explore(request):
-    posts = Post.objects.all
-    return render(request,'petpals_app/explore.html', {'posts':posts})
+    photo = Post.objects.all()
+    # Increase number of posts when database is full
+    paginator = Paginator(photo, 2)
+    page = request.GET.get('page')
+    photos = paginator.get_page(page)
+    
+    return render(request,'petpals_app/explore.html', {'photos':photos})

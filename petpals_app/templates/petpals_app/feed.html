@@ -1,6 +1,7 @@
 {% extends "petpals_app/base.html" %}
 
 {% block content %}
+<li><a class="navbar-brand" href="{% url 'post_create' %}">Add New Post</a></li>
   <ul>
       {% for post in posts %}
         <hr>
