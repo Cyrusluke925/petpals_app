@@ -86,8 +86,9 @@ def profile_create(request):
 
 def profile_view(request):
     user = request.user
-    print(f'the user is {request.user}')  
-    return render(request, 'petpals_app/profile_view.html', {'user': user})
+    posts = Post.objects.filter(user = request.user)
+    print(posts[1].caption)
+    return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
 
 @login_required
 def post_create(request):

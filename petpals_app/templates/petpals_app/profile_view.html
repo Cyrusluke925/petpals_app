@@ -7,10 +7,12 @@
 <p>Age: {{ user.profile.age }}</p>
 <p>Breed: {{ user.profile.breed }}</p>
 <p>Bio: {{ user.profile.bio }}</p>
+<hr>
 
 {% for post in posts %}
-hello
-{{ user.post.image }}
-{% endfor %}
 
+<img src="{{ post.image }}" width="250px" alt="" class="artist-photo">
+<p>{{ post.caption }}</p>
+
+{% endfor %}
 {% endblock %}
