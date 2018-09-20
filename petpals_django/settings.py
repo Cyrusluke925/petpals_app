@@ -17,6 +17,7 @@ import django_heroku
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'petpals_app/templates')
+PICTURE_DIR = os.path.join('petpals_app/media')
 STATIC_DIR = os.path.join(BASE_DIR, 'petpals_app/static')
 MEDIA_DIR = os.path.join('petpals_app/profile_pics')
 # Quick-start development settings - unsuitable for production
@@ -126,6 +127,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR,]
 MEDIA_ROOT = MEDIA_DIR
+PICTURE_ROOT = PICTURE_DIR
 MEDIA_URL = '/media/'
 LOGIN_URL = '/petpals_app/user_login/'
 django_heroku.settings(locals())
@@ -135,5 +137,5 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'))
+# STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'))
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

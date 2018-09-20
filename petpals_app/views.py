@@ -10,10 +10,8 @@ from .models import User, UserProfileInfo, Post, Comment
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
-
 def index(request):
     return render(request, 'petpals_app/index.html')
-
 
 @login_required
 def special(request):
@@ -93,16 +91,14 @@ def profile_view(request):
 @login_required
 def post_create(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            caption = form.cleaned_data.get('caption')
-            created_at = timezone.datetime.now()
-            if 'image' in request.FILES:
-                image = form.cleaned_data.get('image')
-                image=request.FILES['image']
-            post = Post(caption=caption, image=image, created_at=created_at,user=request.user)
-            print(post)
-            post.save()
+            new_post =  form.save(commit=False)
+            new_post.user = request.user
+            new_post.save()
+            print(new_post)
+            print(new_post.user)
+            print(new_post.image)
             return redirect('feed')
         else: 
             print('form invalid')
@@ -130,3 +126,8 @@ def feed(request):
         posts = Post.objects.order_by('-created_at')
         form = CommentForm()
         return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
+
+
+
+
+    

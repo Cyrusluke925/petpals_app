@@ -5,9 +5,9 @@
       {% for post in posts %}
         <hr>
         <li>
-            <p>{{post.image}} </p>
-            <p>{{post.caption}}</p>
-            <!-- {{post.id}} -->
+           <img src="{{post.image.url}}" width="300px"><br>
+            {{post.caption}}
+            <hr>
         </li>
         <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
@@ -26,3 +26,5 @@
       {% endfor %}
   </ul>
 {% endblock %}
+
+
