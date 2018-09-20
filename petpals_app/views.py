@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm
+from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import User, UserProfileInfo, Post
+from .models import User, UserProfileInfo, Post, Comment
 
 
 def index(request):
@@ -84,10 +84,6 @@ def profile_create(request):
     print('about to render')
     return render(request, 'petpals_app/profile_create.html', {'form': form})
 
-@login_required
-def feed(request):
-    posts = Post.objects.order_by('-created_at')
-    return render(request,'petpals_app/feed.html', {'posts':posts})
 
 @login_required
 def post_create(request):
@@ -110,3 +106,46 @@ def post_create(request):
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})
 
+# def comment_create(request):
+#     if request.method == "POST":
+#         if request.POST['content']:
+#             comment = Comment()
+#             comment.content = request.post['content']
+#             comment.created_at = timezone.datetime.now()
+#             comment.user = request.user
+#             comment.save()
+#             return redirect('feed')
+#         else:
+#             return redirect('feed')
+#     else:
+#         return render(request,'petpals_app/feed.html')
+
+
+# def comment_create(request):
+#     if request.method == 'POST':
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('feed')
+#     else:
+#         form = CommentForm()
+#     return render(request, 'petpals_app/feed.html', {'form': form})
+
+@login_required
+def feed(request): 
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        created_at = timezone.datetime.now()
+        if form.is_valid():
+            content = form.cleaned_data.get('content')
+            comment = Comment(content=content, created_at=created_at, user=request.user, post_id='2')
+            comment.save()
+            print('hiiiiiiiiiiiiiii')
+            print(comment.post.id)
+            return redirect('feed')
+        else: 
+            print('form invalid')
+    else: 
+        posts = Post.objects.order_by('-created_at')
+        form = CommentForm()
+        return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
