@@ -29,7 +29,7 @@ class Comment(models.Model):
     content = models.CharField(max_length=300, default="")
     created_at = models.DateTimeField(blank=True)
     user = models.ForeignKey(User, on_delete = models.CASCADE)    
-    post = models.ForeignKey(Post, on_delete = models.CASCADE)
+    post = models.ForeignKey(Post, on_delete = models.CASCADE, related_name='comments')
 
     def created_at_formatted(self):
         return self.created_at.strftime('%b %e %Y')

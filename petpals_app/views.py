@@ -19,18 +19,15 @@ def user_logout(request):
     logout(request)
     return redirect('index')
 
-
 def register(request):
     registered = False
     if request.method == 'POST':
         user_form= UserForm(data=request.POST)
-        
         if user_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
             registered = True
-
             login(request, user)
             return redirect('profile_create')
         else: 
@@ -48,8 +45,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                #need to change the path for this redirect to base/feed when we create the template
-                return redirect('index')
+                return redirect('feed')
             else: 
                 return HttpResponse('Your account is inactive.')
         else:
@@ -60,9 +56,7 @@ def user_login(request):
         #We might need to change the path when we create this form
         return render(request, 'petpals_app/login.html', {})
 
-
-
-#LOGIN REQUIRED IF TIME
+@login_required
 def profile_create(request):
     print(request.user)
     print('entered profile create')
@@ -74,7 +68,6 @@ def profile_create(request):
             profile = profile_form.save(commit=False)
             profile.user = request.user
             profile.save()
-            
             #make a redirect to profile_view
             return redirect('index')
         else: 
@@ -83,7 +76,6 @@ def profile_create(request):
         form = UserProfileInfoForm()
     print('about to render')
     return render(request, 'petpals_app/profile_create.html', {'form': form})
-
 
 @login_required
 def post_create(request):
@@ -106,31 +98,6 @@ def post_create(request):
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})
 
-# def comment_create(request):
-#     if request.method == "POST":
-#         if request.POST['content']:
-#             comment = Comment()
-#             comment.content = request.post['content']
-#             comment.created_at = timezone.datetime.now()
-#             comment.user = request.user
-#             comment.save()
-#             return redirect('feed')
-#         else:
-#             return redirect('feed')
-#     else:
-#         return render(request,'petpals_app/feed.html')
-
-
-# def comment_create(request):
-#     if request.method == 'POST':
-#         form = CommentForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('feed')
-#     else:
-#         form = CommentForm()
-#     return render(request, 'petpals_app/feed.html', {'form': form})
-
 @login_required
 def feed(request): 
     if request.method == 'POST':
@@ -138,10 +105,11 @@ def feed(request):
         created_at = timezone.datetime.now()
         if form.is_valid():
             content = form.cleaned_data.get('content')
-            comment = Comment(content=content, created_at=created_at, user=request.user, post_id='2')
+            post_id = request.POST.get('post_id')
+            comment = Comment(content=content, created_at=created_at, user=request.user, post_id=post_id)
+            print(comment)
             comment.save()
-            print('hiiiiiiiiiiiiiii')
-            print(comment.post.id)
+            print('comment post key:', comment.post.pk)
             return redirect('feed')
         else: 
             print('form invalid')
