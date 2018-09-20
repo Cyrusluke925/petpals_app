@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm
+from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import User, UserProfileInfo, Post
+from .models import User, UserProfileInfo, Post, Comment
 
 #for image upload
 from django.conf import settings
@@ -24,18 +24,15 @@ def user_logout(request):
     logout(request)
     return redirect('index')
 
-
 def register(request):
     registered = False
     if request.method == 'POST':
         user_form= UserForm(data=request.POST)
-        
         if user_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
             registered = True
-
             login(request, user)
             return redirect('profile_create')
         else: 
@@ -53,8 +50,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                #need to change the path for this redirect to base/feed when we create the template
-                return redirect('index')
+                return redirect('feed')
             else: 
                 return HttpResponse('Your account is inactive.')
         else:
@@ -65,9 +61,7 @@ def user_login(request):
         #We might need to change the path when we create this form
         return render(request, 'petpals_app/login.html', {})
 
-
-
-#LOGIN REQUIRED IF TIME
+@login_required
 def profile_create(request):
     print(request.user)
     print('entered profile create')
@@ -81,7 +75,6 @@ def profile_create(request):
             profile = profile_form.save(commit=False)
             profile.user = request.user
             profile.save()
-            
             #make a redirect to profile_view
             return render(request, 'petpals_app/profile_view.html')
         else: 
@@ -91,17 +84,11 @@ def profile_create(request):
     print('about to render')
     return render(request, 'petpals_app/profile_create.html', {'form': form})
 
-@login_required
-def feed(request):
-    posts = Post.objects.order_by('-created_at')
-    return render(request,'petpals_app/feed.html', {'posts':posts})
-
 def profile_view(request):
     user = request.user
     print(f'the user is {request.user}')
    
     return render(request, 'petpals_app/profile_view.html', {'user': user})
-
 
 @login_required
 def post_create(request):
@@ -124,3 +111,22 @@ def post_create(request):
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})
 
+@login_required
+def feed(request): 
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        created_at = timezone.datetime.now()
+        if form.is_valid():
+            content = form.cleaned_data.get('content')
+            post_id = request.POST.get('post_id')
+            comment = Comment(content=content, created_at=created_at, user=request.user, post_id=post_id)
+            print(comment)
+            comment.save()
+            print('comment post key:', comment.post.pk)
+            return redirect('feed')
+        else: 
+            print('form invalid')
+    else: 
+        posts = Post.objects.order_by('-created_at')
+        form = CommentForm()
+        return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})

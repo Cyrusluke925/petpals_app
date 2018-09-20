@@ -1,15 +1,28 @@
 {% extends "petpals_app/base.html" %}
 
-
 {% block content %}
   <ul>
       {% for post in posts %}
-      
+        <hr>
         <li>
-            {{post.image}} <br>
-            {{post.caption}}
-            <hr>
+            <p>{{post.image}} </p>
+            <p>{{post.caption}}</p>
+            <!-- {{post.id}} -->
         </li>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input type="text" name="content" placeholder="Add Comment">
+          <input type="hidden" name="post_id" required id="id_post_id" value={{post.id}} />
+          <button type="submit">Post</button>
+        </form>
+        {% for comment in post.comments.all %}
+        <ul>
+          <li>
+              {{ comment.content }} -{{ comment.user }} 
+          </li>
+        </ul>
+        {% endfor %}
+        <hr>
       {% endfor %}
   </ul>
 {% endblock %}
