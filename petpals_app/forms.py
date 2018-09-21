@@ -34,6 +34,7 @@ class UserProfileInfoForm(forms.ModelForm):
         model = UserProfileInfo
         fields = ('name', 'bio', 'profile_picture', 'breed', 'age')
 
+
 class PostForm(forms.ModelForm):
     
     class Meta():

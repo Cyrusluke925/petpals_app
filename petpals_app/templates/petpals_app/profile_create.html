@@ -4,7 +4,6 @@
 <h1> Welcome, {{ user.username }}!</h1>
 <form enctype="multipart/form-data" method="POST">
     {% csrf_token %}
-  
     <input type='file' name='profile_picture'>
     <input type="text" name='name' placeholder ='Name'>
     <input type="text" name='breed' placeholder ='Breed'>
@@ -13,8 +12,7 @@
     <input type="submit" name="" value="Submit">
   </form>
   <!-- For CSS: Add textarea{resize:none} -->
- 
 <!-- Note - do not continue to feed, profile won't get created -->
 
-  {% endblock %}
+{% endblock %}
 

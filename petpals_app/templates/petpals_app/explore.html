@@ -1,11 +1,12 @@
 {% extends "petpals_app/base.html" %}
+{% load staticfiles %}
 
 {% block content %}
 <li><a class="navbar-brand" href="{% url 'post_create' %}">New Post</a></li>
   <ul>
       {% for photo in photos %}
-        
-           <img src="{{post.image.url}}" width="300px"><br>
+            <p>{{post.image.url}}</p>
+          <img src="{{ post.image.url }}" width="300px"><br>
       {% endfor %}
 
       <div class="pagination">

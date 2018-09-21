@@ -87,7 +87,6 @@ def profile_create(request):
 def profile_view(request):
     user = request.user
     posts = Post.objects.filter(user = request.user)
-    print(posts[1].caption)
     return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
 
 @login_required
@@ -135,8 +134,28 @@ def feed(request):
 def explore(request):
     photo = Post.objects.all()
     # Increase number of posts when database is full
-    paginator = Paginator(photo, 2)
+    print(photo)
+    paginator = Paginator(photo, 5)
     page = request.GET.get('page')
     photos = paginator.get_page(page)
     
     return render(request,'petpals_app/explore.html', {'photos':photos})
+
+@login_required 
+def profile_edit(request):
+    user = User.objects.get(id=request.user.id)
+    print(user)
+    user , created = UserProfileInfo.objects.get_or_create(user=user)
+    user.save()
+    if request.method == "POST":
+        form = UserProfileInfoForm(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save()
+            if 'profile_picture' in request.FILES:
+                user.profile_pic = request.FILES['profile_picture']
+            user.save()
+            return redirect('profile_view')
+    else:
+        form = UserProfileInfoForm(instance=user)
+    return render(request, 'petpals_app/profile_edit.html', {'form': form, 'user': user})
+    

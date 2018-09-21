@@ -12,4 +12,5 @@ urlpatterns = [
     path('post/new', views.post_create, name='post_create'),
     path('feed', views.feed, name='feed'),
     path('explore', views.explore, name='explore'),
+    path('profile_edit', views.profile_edit, name='profile_edit'),
 ]
