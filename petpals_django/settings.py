@@ -125,18 +125,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
-#STATICFILES_DIRS = [STATIC_DIR,]
-MEDIA_ROOT = MEDIA_DIR
-PICTURE_ROOT = PICTURE_DIR
+
+
 MEDIA_URL = '/media/'
-LOGIN_URL = '/petpals_app/user_login/'
-django_heroku.settings(locals())
+MEDIA_ROOT = MEDIA_DIR
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+PICTURE_ROOT = PICTURE_DIR
 
-    
+LOGIN_URL = '/petpals_app/user_login/'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 
-
-STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'))
+STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static')),
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+django_heroku.settings(locals())
