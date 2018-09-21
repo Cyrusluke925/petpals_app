@@ -7,6 +7,13 @@
       
         <li>
            <img src="{{post.image.url}}" width="300px"><br>
+           <form class="likeform" method='POST' enctype='multipart/form-data' novalidate>
+            {% csrf_token %}
+            <input type="hidden" class='new_post' name="post" value={{post.id}}>
+            <input class='user' type='hidden' name='user' value={{request.user}}>
+            
+           <button class='postLike' value={{post.id}} type='submit' style='border: none'><i class="far fa-heart"></i></button>
+           </form>
             {{post.caption}}
             <hr>
         </li>

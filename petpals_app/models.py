@@ -19,7 +19,7 @@ class UserProfileInfo(models.Model):
 class Post(models.Model):
     caption = models.TextField(blank=True, max_length=255, default="", null=True)
     image = models.ImageField(blank=True, upload_to=settings.PICTURE_ROOT)
-    created_at = models.DateTimeField(blank=True)
+    created_at = models.DateTimeField(blank=True, default=None)
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='post')    
 
     def created_at_formatted(self):

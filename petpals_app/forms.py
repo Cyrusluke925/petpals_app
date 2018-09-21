@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from petpals_app.models import UserProfileInfo, Post
+from petpals_app.models import UserProfileInfo, Post, Like
 
 
 class UserForm(forms.ModelForm):
@@ -22,3 +22,11 @@ class PostForm(forms.ModelForm):
     class Meta():
         model = Post 
         fields = ('image','caption')
+
+
+class LikeForm(forms.ModelForm):
+
+    class Meta():
+        model = Like
+        fields = ('user', 'post')
+

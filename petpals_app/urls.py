@@ -11,5 +11,11 @@ urlpatterns = [
     path('profile', views.profile_view, name="profile_view"),
     path('post/new', views.post_create, name='post_create'),
     path('feed', views.feed, name='feed'),
-    # url(r'^user/(?P<fk>[0-9]+)', views.post_create, name='post_create'),
+    path('api/users', views.sendJsonUsers, name='sendJsonPosts'),
+    path('api/posts', views.sendJsonPosts, name="sendJsonPosts"),
+    path('api/likes', views.sendJsonLikes, name="sendJsonLikes"),
+    path('post/<int:pk>/like', views.post_like, name="post_like"),
+    
+    
+
 ]
