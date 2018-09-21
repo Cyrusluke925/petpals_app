@@ -1,13 +1,64 @@
-{% extends "petpals_app/base.html" %}
-{% block content %}
+
+
+{% load staticfiles %}
+
+<head>
+    <title>Pet Pals!</title>
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous" defer></script>
+    <script src="{% static 'scripts/main.js' %}" defer></script>
+ </head>
+
+
+    <h1> Pet Pals </h1>
+
+ 
+    
+        {% if user.is_authenticated %}
+        <p>Welcome Back, {{ user.username }}!</p><a href="{% url 'feed' %}">Feed</a>
+        <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <div class="container">
+                <div class="login-form">
+                    <form method="post"  action="{% url 'user_login' %}">
+                      {% csrf_token %}
+                      <label for="username">Username:</label>
+                      <input type="text" name="username" placeholder="Username">
+                      <label for="password">Password:</label>
+                      <input type="password" name="password" placeholder="Password">
+                      <input type="submit" name="" value="Login">
+                    </form>
+                  </div>
+                </div>
+        <ul>
+            <li><p>Don't have an account? <a class="navbar-link" href="{% url 'register' %}">Sign Up Here!</a></p></li> 
+    
+        {% endif %}
+    </ul>
+    </div>
+</nav>
 <div class="container">
- <div class="jumbotron">
-   <h1>Welcome to PET PALS!</h1>
-   {% if user.is_authenticated %}
-       <h2>Hello {{ user.username }}</h2>
-   {% else %}
-       <h2>Register or Login if you'd like to</h2>
-   {% endif %}
- </div>
-</div>
+{% block content %}
 {% endblock %}
+{% block profile_view %}
+{% endblock %}
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+}
+
+header {
+    background-color: #FFFFFF;
+    width: 100%;
+    margin: 0;
+    position: sticky;
+}
+
+main {
+    background-color: #FAFAFA
+}
+
+.ul-navbar {
+    display: flex;
+    justify-content: space-around;
+    height: 2.7em;
+    padding-left: 0;
+}
+
+.navbar-icon {
+    color: black;
+    font-size: 1.2em;
+    padding: 0 1em;
+}
+
+li {
+    list-style-type: none;
+
+}
+
+.icons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 6em;
+    margin-right: 3em;
+    align-items: center;
+
+}
+
+
+.site-title {
+    font-family: 'pacifico';
+    color: black;
+    font-size: 1.4em;
+    
+    
+}
+
+.title {
+    width: 100%;
+    margin-left: 2em;
+
+}
+
+
+
+
+
+/* ------------------- POSTS IN FEED -------------------- */
+
+ul {
+    padding-left: 0;
+}
+
+
+.post {
+    display: flex;
+    justify-content: center;
+}
+
+.postLike {
+    padding-top: 0.3em;
+    padding-right: 2em;
+    font-size: 0.9em;
+}
+.commentsAndLikes {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.commentForm {
+    background-color: #FFFFFF;
+}
+
+.singlePost {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFFFFF
+}
+
+.commentList {
+    padding-left: 0;
+    
+}
+
+.commentUser {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 18px;
+    color: #262626;
+    font-weight: bold;
+
+}
+
+.captionAndLike {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    width: 301px;
+}
+
+.commentContent {
+    display: inline-block;
+    padding-left: 1em;
+    font-weight: lighter;
+    font-size: 12px;
+    color: #000000;
+
+}
+
+.theComment {
+    width: 301px;
+}

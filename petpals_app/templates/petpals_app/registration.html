@@ -1,6 +1,6 @@
-{% extends "petpals_app/base.html" %}
+
 {% load staticfiles %}
-{% block content %}
+
   <div class="container">
     <div class="jumbotron">
       {% if registered %}
@@ -8,15 +8,13 @@
       
       {% else %}
       
-      <h1>Register Here</h1>
-        <h3>Just fill out the form.</h3>
+      <h1>Create an Account</h1>
         <form enctype="multipart/form-data" method="POST">
           {% csrf_token %}
           {{ user_form.as_p }}
-          <input type="submit" name="" value="Register">
+          <input type="submit" name="" value="Sign Up!">
         </form>
         
       {% endif %}
     </div>
   </div>
-{% endblock %}
