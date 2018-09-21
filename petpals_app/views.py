@@ -24,25 +24,6 @@ def other_profile(request, pk):
     user = User.objects.get(id=pk)
     return render(request, 'petpals_app/other_profile.html', {'user': user})
 
-@login_required 
-def profile_edit(request):
-    user = User.objects.get(id=request.user.id)
-    print(user)
-    user , created = UserProfileInfo.objects.get_or_create(user=user)
-    user.save()
-    if request.method == "POST":
-        form = UserProfileInfoForm(request.POST, instance=user)
-        if form.is_valid():
-            user = form.save()
-            if 'profile_picture' in request.FILES:
-                user.profile_picture = request.FILES['profile_picture']
-            user.save()
-            return redirect('profile_view')
-    else:
-        form = UserProfileInfoForm(instance=user)
-    return render(request, 'petpals_app/profile_edit.html', {'form': form, 'user': user})
-    
-
 def index(request):
     return render(request, 'petpals_app/index.html')
 
