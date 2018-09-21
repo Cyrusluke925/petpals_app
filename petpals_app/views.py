@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, LikeForm
+from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, LikeForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import User, UserProfileInfo, Post, Like
+from .models import User, UserProfileInfo, Post, Like, Comment
 
 #for image upload
 from django.conf import settings
@@ -14,6 +14,12 @@ from django.core import serializers
 from django.http import QueryDict
 from django.views.decorators.csrf import csrf_exempt
 
+
+def profile_view(request):
+    user = request.user
+    print(f'the user is {request.user}')
+   
+    return render(request, 'petpals_app/profile_view.html', {'user': user})
 
 
 def index(request):
@@ -100,7 +106,8 @@ def profile_create(request):
             profile.user = request.user
             profile.save()
             
-            #make a redirect to profile_view
+            #make a redirect to 
+            
             return render(request, 'petpals_app/profile_view.html')
         else: 
             print(profile_form.errors)
@@ -112,21 +119,25 @@ def profile_create(request):
 
 
 @login_required
-# @csrf_exempt
-def feed(request):
-    posts = Post.objects.order_by('-created_at')
-    form = LikeForm()
-    return render(request, 'petpals_app/feed.html', {'form':form, 'posts': posts})
-
-
-    posts = Post.objects.order_by('-created_at')
-    return render(request,'petpals_app/feed.html', {'posts':posts})
-
-def profile_view(request):
-    user = request.user
-    print(f'the user is {request.user}')
-   
-    return render(request, 'petpals_app/profile_view.html', {'user': user})
+@login_required
+def feed(request): 
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        created_at = timezone.datetime.now()
+        if form.is_valid():
+            content = form.cleaned_data.get('content')
+            post_id = request.POST.get('post_id')
+            comment = Comment(content=content, created_at=created_at, user=request.user, post_id=post_id)
+            print(comment)
+            comment.save()
+            print('comment post key:', comment.post.pk)
+            return redirect('feed')
+        else: 
+            print('form invalid')
+    else: 
+        posts = Post.objects.order_by('-created_at')
+        form = CommentForm()
+        return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
 
 
 @csrf_exempt
@@ -143,6 +154,7 @@ def post_like(request, pk):
             like.save()
         # hell yeah!
             return JsonResponse({'message': f'{request.user.username} liked the post with id of {pk}'})
+            
 
 
 

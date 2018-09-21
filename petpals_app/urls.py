@@ -17,5 +17,6 @@ urlpatterns = [
     path('post/<int:pk>/like', views.post_like, name="post_like"),
     
     
+    
 
 ]

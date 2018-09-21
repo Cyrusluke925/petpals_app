@@ -12,7 +12,7 @@ $.ajax({
 })
 
 
-$('.postLike').on('click', function(element) {
+$('.postLike').on('click', function(element){
     $(this).css('color', 'red')
     element.preventDefault();
     var form = $('.likeform').serialize()
@@ -34,6 +34,7 @@ $('.postLike').on('click', function(element) {
         data: theData,
         success: function onSuccess(e) {
             console.log(e);
+            // $(this).css('color', 'red')
         },
         error: function onError(err1, err2, err3) {
             console.log(err)
@@ -44,6 +45,9 @@ $('.postLike').on('click', function(element) {
     })
     
 })
+
+
+
 
 
 
