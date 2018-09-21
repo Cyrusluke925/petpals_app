@@ -9,7 +9,7 @@ $.ajax({
 })
 
 // console.log('hello')
-console.log('goodbye')
+console.log('cya')
 $('.postLike').on('click', function(element){
     $(this).css('color', 'red')
     element.preventDefault();
