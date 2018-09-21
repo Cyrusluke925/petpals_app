@@ -3,12 +3,15 @@
 {% extends "petpals_app/base.html" %}
 
 {% block content %}
+<li><a class="navbar-brand" href="{% url 'post_create' %}">Add New Post</a></li>
   <ul>
       {% for post in posts %}
         <hr>
-        <li>
-           <img src="{{post.image.url}}" width="300px"><br>
-            {{post.caption}}
+      <section class="post">
+        <li class='singlePost'>
+           <img src="{{post.image.url}}" width="600px">
+           <article class='captionAndLike'>
+           {{post.caption}}
 
             <form class="likeform" method='POST' enctype='multipart/form-data' novalidate>
               {% csrf_token %}
@@ -16,23 +19,35 @@
               <input class='user' type='hidden' name='user' value={{request.user}}>
               <button class='postLike' value={{post.id}} type='submit' style='border: none'><i class="far fa-heart"></i></button>
              </form>
+             </article>
 
             <hr>
         </li>
-        <form method="POST" enctype="multipart/form-data">
+
+        
+
+        </section>
+
+      <section class='commentsAndLikes'>
+        <form  type='submit' id='commentForm' method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <input type="text" name="content" placeholder="Add Comment">
           <input type="hidden" name="post_id" required id="id_post_id" value={{post.id}} />
-          <button type="submit">Post</button>
+          <!-- <button type="submit">Post</button> -->
         </form>
         {% for comment in post.comments.all %}
-        <ul>
-          <li>
-              {{ comment.content }} -{{ comment.user }} 
+        <ul class='commentList'>
+          <li class='comment'>
+            <article class='theComment'>
+              <p class="commentUser">{{ comment.user }}</p><p class='commentContent'>{{ comment.content }}</p> 
+              </article>
           </li>
         </ul>
         {% endfor %}
         <hr>
       {% endfor %}
+      </section>
   </ul>
+
+
 {% endblock %}

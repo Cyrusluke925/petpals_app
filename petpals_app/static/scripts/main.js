@@ -1,8 +1,5 @@
 
 
-
-
-
 $.ajax({
     method: 'Get',
     url: '/api/posts',
@@ -11,7 +8,8 @@ $.ajax({
     }
 })
 
-
+// console.log('hello')
+console.log('goodbye')
 $('.postLike').on('click', function(element){
     $(this).css('color', 'red')
     element.preventDefault();
@@ -45,8 +43,6 @@ $('.postLike').on('click', function(element){
     })
     
 })
-
-
 
 
 
