@@ -19,4 +19,6 @@ urlpatterns = [
     
     
 
+    path('explore', views.explore, name='explore'),
+    path('profile_edit', views.profile_edit, name='profile_edit'),
 ]

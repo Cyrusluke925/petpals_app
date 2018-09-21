@@ -6,7 +6,6 @@
     
         <form method="post"  action="{% url 'user_login' %}">
           {% csrf_token %}
-          {# A more "HTML" way of creating the login form#}
           <label for="username">Username:</label>
           <input type="text" name="username" placeholder="Username">
           <label for="password">Password:</label>

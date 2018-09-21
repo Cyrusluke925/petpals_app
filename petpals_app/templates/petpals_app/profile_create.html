@@ -1,18 +1,18 @@
 {% extends "petpals_app/base.html" %}
 {% load staticfiles %}
 {% block content %}
-
+<h1> Welcome, {{ user.username }}!</h1>
 <form enctype="multipart/form-data" method="POST">
     {% csrf_token %}
-    <input type="text" name='name'>
-    <input type="text" name='breed'>
-    <input type="number" name="age">
-    <textarea name='bio'></textarea>
     <input type='file' name='profile_picture'>
-    <input type="submit" name="" value="Create Profile">
+    <input type="text" name='name' placeholder ='Name'>
+    <input type="text" name='breed' placeholder ='Breed'>
+    <input type="number" name="age" placeholder ='Age'>
+    <textarea rows="4" columns="50" name='bio' placeholder ='Bio'></textarea>
+    <input type="submit" name="" value="Submit">
   </form>
+  <!-- For CSS: Add textarea{resize:none} -->
+<!-- Note - do not continue to feed, profile won't get created -->
 
-
-
-  {% endblock %}
+{% endblock %}
 

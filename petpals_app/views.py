@@ -6,6 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import User, UserProfileInfo, Post, Like, Comment
 
+#for pagination
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import render
+
 #for image upload
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
@@ -15,11 +19,11 @@ from django.http import QueryDict
 from django.views.decorators.csrf import csrf_exempt
 
 
-def profile_view(request):
-    user = request.user
-    print(f'the user is {request.user}')
+# def profile_view(request):
+#     user = request.user
+#     print(f'the user is {request.user}')
    
-    return render(request, 'petpals_app/profile_view.html', {'user': user})
+#     return render(request, 'petpals_app/profile_view.html', {'user': user})
 
 
 def index(request):
@@ -87,8 +91,6 @@ def user_login(request):
 
 @login_required
 def profile_create(request):
-    print(request.user)
-    print('entered profile create')
     #add registered false and true
     if request.method == "POST":
         print('method is a post ')
@@ -110,6 +112,10 @@ def profile_create(request):
     print('about to render')
     return render(request, 'petpals_app/profile_create.html', {'form': form})
 
+def profile_view(request):
+    user = request.user
+    posts = Post.objects.filter(user = request.user)
+    return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
 
 
 
@@ -171,3 +177,32 @@ def post_create(request):
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})
 
+@login_required
+def explore(request):
+    photo = Post.objects.all()
+    # Increase number of posts when database is full
+    print(photo)
+    paginator = Paginator(photo, 5)
+    page = request.GET.get('page')
+    photos = paginator.get_page(page)
+    
+    return render(request,'petpals_app/explore.html', {'photos':photos})
+
+@login_required 
+def profile_edit(request):
+    user = User.objects.get(id=request.user.id)
+    print(user)
+    user , created = UserProfileInfo.objects.get_or_create(user=user)
+    user.save()
+    if request.method == "POST":
+        form = UserProfileInfoForm(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save()
+            if 'profile_picture' in request.FILES:
+                user.profile_picture = request.FILES['profile_picture']
+            user.save()
+            return redirect('profile_view')
+    else:
+        form = UserProfileInfoForm(instance=user)
+    return render(request, 'petpals_app/profile_edit.html', {'form': form, 'user': user})
+    
