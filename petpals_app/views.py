@@ -194,10 +194,10 @@ def post_create(request):
 
 @login_required
 def explore(request):
-    photo = Post.objects.all()
+    photos = Post.objects.order_by('?')
     # Increase number of posts when database is full
-    print(photo)
-    paginator = Paginator(photo, 5)
+    print(photos)
+    paginator = Paginator(photos, 9)
     page = request.GET.get('page')
     photos = paginator.get_page(page)
     
