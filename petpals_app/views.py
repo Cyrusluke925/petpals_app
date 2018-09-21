@@ -110,10 +110,9 @@ def profile_create(request):
     print('about to render')
     return render(request, 'petpals_app/profile_create.html', {'form': form})
 
-<<<<<<< HEAD
 
 
-@login_required
+
 @login_required
 def feed(request): 
     if request.method == 'POST':
@@ -135,8 +134,6 @@ def feed(request):
         return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
 
 
-=======
->>>>>>> e0a6f399cc2180c250088488d75fe69b7bdef14a
 @csrf_exempt
 def post_like(request, pk):
 
@@ -174,30 +171,3 @@ def post_create(request):
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})
 
-<<<<<<< HEAD
-=======
-@login_required
-def feed(request): 
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        created_at = timezone.datetime.now()
-        if form.is_valid():
-            content = form.cleaned_data.get('content')
-            post_id = request.POST.get('post_id')
-            comment = Comment(content=content, created_at=created_at, user=request.user, post_id=post_id)
-            print(comment)
-            comment.save()
-            print('comment post key:', comment.post.pk)
-            return redirect('feed')
-        else: 
-            print('form invalid')
-    else: 
-        posts = Post.objects.order_by('-created_at')
-        form = CommentForm()
-        return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
-
-
-
-
-    
->>>>>>> e0a6f399cc2180c250088488d75fe69b7bdef14a
