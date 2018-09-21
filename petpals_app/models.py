@@ -40,3 +40,10 @@ class Like(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Follow(models.Model):
+    user_from = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_from')
+    user_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_to")
+
+    def __str__(self):
+        return self.user_from.username

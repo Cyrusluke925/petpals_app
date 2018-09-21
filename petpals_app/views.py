@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, LikeForm, CommentForm
+from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, LikeForm, CommentForm, FollowForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import User, UserProfileInfo, Post, Like, Comment
+from .models import User, UserProfileInfo, Post, Like, Comment, Follow
 
 #for image upload
 from django.conf import settings
@@ -14,13 +14,34 @@ from django.core import serializers
 from django.http import QueryDict
 from django.views.decorators.csrf import csrf_exempt
 
-
 def profile_view(request):
     user = request.user
-    print(f'the user is {request.user}')
-   
-    return render(request, 'petpals_app/profile_view.html', {'user': user})
+    posts = Post.objects.filter(user = request.user)
+    return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
 
+
+def other_profile(request, pk):
+    user = User.objects.get(id=pk)
+    return render(request, 'petpals_app/other_profile.html', {'user': user})
+
+@login_required 
+def profile_edit(request):
+    user = User.objects.get(id=request.user.id)
+    print(user)
+    user , created = UserProfileInfo.objects.get_or_create(user=user)
+    user.save()
+    if request.method == "POST":
+        form = UserProfileInfoForm(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save()
+            if 'profile_picture' in request.FILES:
+                user.profile_picture = request.FILES['profile_picture']
+            user.save()
+            return redirect('profile_view')
+    else:
+        form = UserProfileInfoForm(instance=user)
+    return render(request, 'petpals_app/profile_edit.html', {'form': form, 'user': user})
+    
 
 def index(request):
     return render(request, 'petpals_app/index.html')
@@ -38,6 +59,9 @@ def sendJsonLikes(request):
     likes = list(Like.objects.all().values('post', 'user'))
     return JsonResponse({'likes': likes})
     
+def sendJsonFollows(request):
+    follows = list(Follow.objects.all().values('user_to', 'user_from'))
+    return JsonResponse({'follows': follows})
 
 @login_required
 def special(request):
@@ -121,10 +145,25 @@ def post_like(request, pk):
             print(request.user.id)
 
             like = Like(post_id=pk, user=request.user)
-            like.save()
+            like.save()  
         # hell yeah!
             return JsonResponse({'message': f'{request.user.username} liked the post with id of {pk}'})
-            
+
+@csrf_exempt
+def follow(request, pk):
+    user_to = User.objects.get(id=pk)
+    if Follow.objects.filter(user_to=pk, user_from=request.user.id).exists():
+        print('THIS EXISTS')
+        print('here')
+    else:
+        if request.method == "POST":
+            print("USER: ")
+            print(request.user.id)
+            print ('USER TO:')
+            print (user_to.id)
+            follow = Follow(user_to=user_to, user_from=request.user)
+            follow.save()  
+            return JsonResponse({'message': f'{request.user.username} followed the user with id of {pk}'})
 
 @login_required
 def post_create(request):

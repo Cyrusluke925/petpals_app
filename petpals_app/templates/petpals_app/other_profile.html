@@ -2,7 +2,12 @@
 {% load staticfiles %}
 
 {% block profile_view %}
-
+    <form class="followform" method='POST' enctype='multipart/form-data' novalidate>
+        {% csrf_token %}
+        <input type="hidden" class="userTo" name="userTo" value={{user.id}}>
+        <input class='userFrom' type='hidden' name='userFrom' value={{request.user.id}}>
+        <button class='follow'' value={{user.id}} type='submit'>Follow</button>
+    </form>
 
     <h1>{{user.username}}</h1>
     <img src="{{ user.profile.profile_picture.url }}" width="250px" alt="">

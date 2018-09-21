@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from petpals_app.models import UserProfileInfo, Post, Like, Comment
+from petpals_app.models import UserProfileInfo, Post, Like, Comment, Follow
 
 
 class UserForm(forms.ModelForm):
@@ -35,3 +35,10 @@ class CommentForm(forms.ModelForm):
     class Meta():
         model = Comment
         fields = ('content',)
+
+
+class FollowForm(forms.ModelForm):
+
+    class Meta():
+        model = Follow
+        fields = ('user_to', 'user_from')
