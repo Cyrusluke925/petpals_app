@@ -1,24 +1,15 @@
 from django.shortcuts import render, redirect
-<<<<<<< HEAD
 from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, LikeForm, CommentForm
-=======
-from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, CommentForm
->>>>>>> f7940206b4c691e044779d86e27e19918f705150
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-<<<<<<< HEAD
 from .models import User, UserProfileInfo, Post, Like, Comment
-=======
-from .models import User, UserProfileInfo, Post, Comment
->>>>>>> f7940206b4c691e044779d86e27e19918f705150
 
 #for image upload
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
-<<<<<<< HEAD
 from django.core import serializers
 from django.http import QueryDict
 from django.views.decorators.csrf import csrf_exempt
@@ -48,11 +39,6 @@ def sendJsonLikes(request):
     return JsonResponse({'likes': likes})
     
 
-=======
-def index(request):
-    return render(request, 'petpals_app/index.html')
-
->>>>>>> f7940206b4c691e044779d86e27e19918f705150
 @login_required
 def special(request):
     return HttpResponse('You are already logged in.')
@@ -88,10 +74,6 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-<<<<<<< HEAD
-                #need to change the path for this redirect to base/feed when we create the template
-=======
->>>>>>> f7940206b4c691e044779d86e27e19918f705150
                 return redirect('feed')
             else: 
                 return HttpResponse('Your account is inactive.')
@@ -128,31 +110,6 @@ def profile_create(request):
     print('about to render')
     return render(request, 'petpals_app/profile_create.html', {'form': form})
 
-<<<<<<< HEAD
-
-
-@login_required
-@login_required
-def feed(request): 
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        created_at = timezone.datetime.now()
-        if form.is_valid():
-            content = form.cleaned_data.get('content')
-            post_id = request.POST.get('post_id')
-            comment = Comment(content=content, created_at=created_at, user=request.user, post_id=post_id)
-            print(comment)
-            comment.save()
-            print('comment post key:', comment.post.pk)
-            return redirect('feed')
-        else: 
-            print('form invalid')
-    else: 
-        posts = Post.objects.order_by('-created_at')
-        form = CommentForm()
-        return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
-
-
 @csrf_exempt
 def post_like(request, pk):
 
@@ -168,12 +125,6 @@ def post_like(request, pk):
         # hell yeah!
             return JsonResponse({'message': f'{request.user.username} liked the post with id of {pk}'})
             
-=======
-def profile_view(request):
-    user = request.user
-    print(f'the user is {request.user}')  
-    return render(request, 'petpals_app/profile_view.html', {'user': user})
->>>>>>> f7940206b4c691e044779d86e27e19918f705150
 
 @login_required
 def post_create(request):
@@ -196,8 +147,6 @@ def post_create(request):
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})
 
-<<<<<<< HEAD
-=======
 @login_required
 def feed(request): 
     if request.method == 'POST':
@@ -222,4 +171,3 @@ def feed(request):
 
 
     
->>>>>>> f7940206b4c691e044779d86e27e19918f705150
