@@ -1,1 +1,1 @@
-web: gunicorn petpals_django.wsgi --log-file -
+web: gunicorn petpals_app.wsgi --log-file -
