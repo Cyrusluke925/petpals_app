@@ -152,7 +152,7 @@ def profile_edit(request):
         if form.is_valid():
             user = form.save()
             if 'profile_picture' in request.FILES:
-                user.profile_pic = request.FILES['profile_picture']
+                user.profile_picture = request.FILES['profile_picture']
             user.save()
             return redirect('profile_view')
     else:
