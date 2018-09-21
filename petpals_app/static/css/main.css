@@ -6,14 +6,14 @@ header {
     background-color: #FFFFFF;
     width: 100%;
     margin: 0;
-    position: sticky;
+    /* position: sticky; */
 }
 
 main {
-    background-color: #FAFAFA
+    background-color: #FAFAFA;
 }
 
-.ul-navbar {
+/* .ul-navbar {
     display: flex;
     justify-content: space-around;
     height: 2.7em;
@@ -41,11 +41,13 @@ li {
 
 }
 
+*/
 
 .site-title {
     font-family: 'pacifico';
-    color: black;
-    font-size: 1.4em;
+    color: #337ab7;
+    font-size: 2em;
+
     
     
 }
@@ -54,8 +56,8 @@ li {
     width: 100%;
     margin-left: 2em;
 
-}
 
+}
 
 
 
@@ -81,6 +83,7 @@ ul {
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-color:#FFFFFF;
     
 }
 
@@ -127,4 +130,42 @@ ul {
 
 .theComment {
     width: 301px;
+}
+
+
+
+
+
+
+
+/* --------------------------------NAVBAR TESTING -------------------------------- */
+
+ul.nav.nav-pills{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.navbar-icon {
+    color: #a5adb0;
+    font-size: 1.8em;
+}
+
+.dropdown-toggle {
+    color: #337ab7;
+    font-size: 1.8em;
+}
+
+
+header {
+    height: 5.4em;
+    background-color: #FFFFFF;
+}
+
+.navbar-icon:hover {
+    color: #337ab7;
+    
+}
+
+.navbar-icon:hover, .site-title:hover, .dropdown-toggle:hover{
+    background-color: white !important;
 }
