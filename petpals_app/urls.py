@@ -16,6 +16,10 @@ urlpatterns = [
     path('api/posts', views.sendJsonPosts, name="sendJsonPosts"),
     path('api/likes', views.sendJsonLikes, name="sendJsonLikes"),
     path('post/<int:pk>/like', views.post_like, name="post_like"),
+    
+    
+    
+
     path('explore', views.explore, name='explore'),
     path('profile_edit', views.profile_edit, name='profile_edit'),
     path('api/follows', views.sendJsonFollows, name="sendJsonFollows"),
