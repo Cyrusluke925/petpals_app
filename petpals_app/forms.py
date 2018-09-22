@@ -3,13 +3,6 @@ from django.contrib.auth.models import User
 from petpals_app.models import UserProfileInfo, Post, Like, Comment, Follow
 
 
-# class UserForm(forms.ModelForm):
-#     password = forms.CharField(widget=forms.PasswordInput())
-
-#     class Meta():
-#         model = User
-#         fields = ('username', 'email', 'password')
-
 class UserForm(forms.ModelForm):
     password=forms.CharField(widget=forms.PasswordInput())
     confirm_password=forms.CharField(widget=forms.PasswordInput())
@@ -23,64 +16,43 @@ class UserForm(forms.ModelForm):
         confirm_password = cleaned_data.get("confirm_password")
 
         if password != confirm_password:
-            raise forms.ValidationError(
-                "Passwords do not match, please try again!"
-            )
+            raise forms.ValidationError("Passwords do not match, please try again!")
 
 
 class UserProfileInfoForm(forms.ModelForm):
-
     class Meta():
         model = UserProfileInfo
-        fields = ('name', 'bio', 'profile_picture', 'breed', 'age')
-    
-    def clean(self):
-        cleaned_data = super(UserProfileInfoForm, self).clean()
-        # age = cleaned_data.get("age", '')
-        # breed = cleaned_data.get("breed", '')
-
-        # if not isinstance(age,int):
-        #     raise forms.ValidationError("Please enter a number for pet's age.")
+        fields = ('name', 'breed', 'age', 'profile_picture', 'bio')
 
 class PostForm(forms.ModelForm):
-    
     class Meta():
         model = Post 
         fields = ('image','caption')
-    def clean_caption(self):
-        print ('b ')
-
-    def clean_image(self):
-        print ('a ')
 
 class ProfileEditForm(forms.ModelForm):
-
     class Meta():
         model = UserProfileInfo
-        fields = ('name', 'bio', 'profile_picture', 'breed', 'age')
+        fields = ('name', 'breed', 'age', 'profile_picture', 'bio')
         
-    def clean(self):
-        cleaned_data = super(UserProfileInfoForm, self).clean()
-        age = cleaned_data.get("age")
+    # def clean(self):
+    #     cleaned_data = super(UserProfileInfoForm, self).clean()
+    #     age = cleaned_data.get("age")
 
-        if not isinstance(age,int):
-            raise forms.ValidationError("Please enter a number for pet's age.")
+    #     if not isinstance(age,int):
+    #         raise forms.ValidationError("Please enter a number for pet's age.")
 
 class LikeForm(forms.ModelForm):
-
     class Meta():
         model = Like
         fields = ('user', 'post')
 
 class CommentForm(forms.ModelForm):
-
     class Meta():
         model = Comment
         fields = ('content',)
 
 
 class FollowForm(forms.ModelForm):
-
     class Meta():
         model = Follow
         fields = ('user_to', 'user_from')

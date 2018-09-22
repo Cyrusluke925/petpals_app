@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
 from django.utils import timezone
 
@@ -8,6 +9,7 @@ from django.utils import timezone
 
 # age_form =forms.CharField(min_length=7, validators=[])
 
+# RegEx Validtors
 def _get_breed_validator():
     return RegexValidator('^[a-zA-Z ]+$', message="Breeds can only allow uppercase letters, lowercase letters, and spaces")
 
@@ -16,7 +18,10 @@ class UserProfileInfo(models.Model):
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(blank=True,  upload_to=settings.MEDIA_ROOT, null=True, default=settings.MEDIA_ROOT+'/pawprint.png')
     breed = models.CharField(max_length=40, blank=True, null=True, validators=[_get_breed_validator()])
-    age = models.PositiveIntegerField(blank=True, null=True )
+    age = models.PositiveIntegerField(blank=True, null=True,  validators=[
+            MaxValueValidator(100),
+            MinValueValidator(0)
+        ])
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 #make onetoone later
     def __str__(self):
