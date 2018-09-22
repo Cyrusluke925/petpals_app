@@ -11,7 +11,7 @@
         <li class='singlePost'>
            <img src="{{post.image.url}}" width="600px">
            <article class='captionAndLike'>
-           {{post.caption}}
+           <p>{{post.caption}} <span><a href={% url 'other_profile' pk=post.user.id %} >{{post.user.username}}</a></span></p>
 
             <form class="likeform" method='POST' enctype='multipart/form-data' novalidate>
               {% csrf_token %}
