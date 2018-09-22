@@ -204,7 +204,7 @@ def profile_view(request):
     user = request.user
     posts = Post.objects.filter(user = request.user)
     return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
-    
+
 @login_required
 def explore(request):
     photo = Post.objects.all()
@@ -219,18 +219,22 @@ def explore(request):
 @login_required 
 def profile_edit(request):
     user = User.objects.get(id=request.user.id)
-    print(user)
+    print(user.profile.name)
     user , created = UserProfileInfo.objects.get_or_create(user=user)
     user.save()
     if request.method == "POST":
         form = UserProfileInfoForm(request.POST, instance=user)
+        print('in PUT')
         if form.is_valid():
+            print('form is valid')
             user = form.save()
             if 'profile_picture' in request.FILES:
+                print('pic in req')
                 user.profile_picture = request.FILES['profile_picture']
             user.save()
             return redirect('profile_view')
     else:
+        print('method was {}'.format(request.method))
         form = UserProfileInfoForm(instance=user)
     return render(request, 'petpals_app/profile_edit.html', {'form': form, 'user': user})
     

@@ -36,10 +36,11 @@ class UserProfileInfoForm(forms.ModelForm):
     
     def clean(self):
         cleaned_data = super(UserProfileInfoForm, self).clean()
-        age = cleaned_data.get("age")
+        # age = cleaned_data.get("age", '')
+        # breed = cleaned_data.get("breed", '')
 
-        if not isinstance(age,int):
-            raise forms.ValidationError("Please enter a number for pet's age.")
+        # if not isinstance(age,int):
+        #     raise forms.ValidationError("Please enter a number for pet's age.")
 
 class PostForm(forms.ModelForm):
     
@@ -52,6 +53,18 @@ class PostForm(forms.ModelForm):
     def clean_image(self):
         print ('a ')
 
+class ProfileEditForm(forms.ModelForm):
+
+    class Meta():
+        model = UserProfileInfo
+        fields = ('name', 'bio', 'profile_picture', 'breed', 'age')
+        
+    def clean(self):
+        cleaned_data = super(UserProfileInfoForm, self).clean()
+        age = cleaned_data.get("age")
+
+        if not isinstance(age,int):
+            raise forms.ValidationError("Please enter a number for pet's age.")
 
 class LikeForm(forms.ModelForm):
 

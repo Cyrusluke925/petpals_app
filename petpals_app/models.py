@@ -14,14 +14,13 @@ def _get_breed_validator():
 class UserProfileInfo(models.Model):
     name = models.CharField(max_length=40)
     bio = models.TextField(blank=True, null=True)
-    profile_picture = models.ImageField(blank=True,  upload_to=settings.MEDIA_ROOT)
+    profile_picture = models.ImageField(blank=True,  upload_to=settings.MEDIA_ROOT, null=True, default=settings.MEDIA_ROOT+'/pawprint.png')
     breed = models.CharField(max_length=40, blank=True, null=True, validators=[_get_breed_validator()])
     age = models.PositiveIntegerField(blank=True, null=True )
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 #make onetoone later
     def __str__(self):
         return self.user.username
-
 
 class Post(models.Model):
     caption = models.TextField(blank=True, max_length=255, default="", null=True)
