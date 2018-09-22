@@ -257,3 +257,14 @@ def profile_edit(request):
         form = UserProfileInfoForm(instance=user)
     return render(request, 'petpals_app/profile_edit.html', {'form': form, 'user': user})
     
+
+def view_likes(request):
+
+
+    the_likes = list(Like.objects.all())
+    like_list = []
+    for like in the_likes:
+        if like.post.user == request.user:
+            like_list.append(like)
+            print(like_list)
+    return render(request, 'petpals_app/view_likes.html', {'like_list': like_list})
