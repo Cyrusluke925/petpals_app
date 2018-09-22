@@ -220,7 +220,8 @@ def explore(request):
 def profile_edit(request):
     user = User.objects.get(id=request.user.id)
     print(user.profile.name)
-    user , created = UserProfileInfo.objects.get_or_create(user=user)
+    # Created not referenced elsewhere because function requires a tuple
+    user, created  = UserProfileInfo.objects.get_or_create(user=user)
     user.save()
     if request.method == "POST":
         form = UserProfileInfoForm(request.POST, instance=user)
