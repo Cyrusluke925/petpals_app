@@ -5,6 +5,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import User, UserProfileInfo, Post, Like, Comment, Follow
+from django.db.models import Q
 
 #for pagination
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -21,7 +22,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 def other_profile(request, pk):
     user = User.objects.get(id=pk)
-    return render(request, 'petpals_app/other_profile.html', {'user': user})
+    posts = Post.objects.filter(user=pk)
+    return render(request, 'petpals_app/other_profile.html', {'user': user, 'posts': posts})
 
 def index(request):
     return render(request, 'petpals_app/index.html')
@@ -135,10 +137,23 @@ def feed(request):
         else: 
             print('form invalid')
     else: 
-        posts = Post.objects.order_by('-created_at')
+        # print('logged in:', request.user)
+        posts = Post.objects.filter(
+            Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
+        ).distinct().order_by('-created_at')
         form = CommentForm()
-        return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
+        
+        for post in posts:
+            likes = Like.objects.filter(post=post)
+            print(list(likes))
+            print('END')
+            
+            likes = likes.all().count()
+            print(likes)
+            post.likes = likes
 
+
+        return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
 
 @csrf_exempt
 def post_like(request, pk):
@@ -207,10 +222,13 @@ def profile_view(request):
 
 @login_required
 def explore(request):
-    photo = Post.objects.all()
+    photos = Post.objects.exclude(
+            Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
+            ).order_by('?')
+    # photos = Post.objects.exclude(user=request.user.id).order_by('?')
     # Increase number of posts when database is full
-    print(photo)
-    paginator = Paginator(photo, 5)
+    print(photos)
+    paginator = Paginator(photos, 9)
     page = request.GET.get('page')
     photos = paginator.get_page(page)
     
