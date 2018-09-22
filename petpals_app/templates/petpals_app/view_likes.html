@@ -1,0 +1,11 @@
+{% extends "petpals_app/base.html" %}
+{% block like_list %}
+{% for like in like_list %}
+    <p>{{like.user}} liked <img src="{{like.post.image.url}}" width="50px;"></p>
+
+
+{% endfor %}
+
+
+
+{% endblock %}
