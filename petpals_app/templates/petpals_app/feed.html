@@ -11,7 +11,7 @@
             <li class="singlePost">
                 <section class='userInformation'>
                 <img class="user_profile_image" src="{{post.user.profile.profile_picture.url }}" width=30px>
-                <h4>{{post.user.username}}</h4>
+                <h4><a href={% url 'other_profile' pk=post.user.id %} >{{post.user.username}}</a></h4>
                 </section>
                 <img src="{{post.image.url}}" width="598px">
                 <article class = 'captionAndLike'>
@@ -22,6 +22,7 @@
                     <input class='user' type='hidden' name='user' value={{request.user.id}}>
                     <button class='postLike' value={{post.id}} type='submit' style='border: none'><i class="far fa-heart"></i></button>
                     </form>
+                    <p>{{post.likes}}</p>
                     {{post.caption}}
 
                     <article class="commentsAndLikes">
