@@ -144,7 +144,16 @@ ul {
     max-height: 40px;
     border-radius: 50%;
     height: 2.5em;
-    width: 2.4em;
+    width: 1.8em;
+    border: 0.5px solid black;
+}
+
+.user_profile_picture {
+    max-height: 40px;
+    border-radius: 50%;
+    height: 2.5em;
+    width: 2.5em;
+    border: 0.5px solid black;
 }
 
 h4 {
