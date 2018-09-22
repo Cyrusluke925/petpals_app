@@ -170,3 +170,11 @@ header {
     background-color: white !important;
 }
 
+
+.dropedown-menu {
+    width: 10px;
+}
+
+.nav {
+    padding-right: 2em;
+}

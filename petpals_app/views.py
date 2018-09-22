@@ -28,6 +28,11 @@ def other_profile(request, pk):
 def index(request):
     return render(request, 'petpals_app/index.html')
 
+
+def about(request):
+    return render(request, 'petpals_app/about.html')
+
+
 def sendJsonUsers(request):
     users = list(User.objects.all().values('username', 'email'))
     return JsonResponse({'users': users})
@@ -119,6 +124,8 @@ def profile_create(request):
     form = UserProfileInfoForm()
 
     return render(request, 'petpals_app/profile_create.html', {'form': form})
+
+
 
 
 @login_required
