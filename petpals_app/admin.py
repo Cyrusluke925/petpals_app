@@ -5,3 +5,5 @@ admin.site.register(models.UserProfileInfo)
 admin.site.register(models.Post)
 admin.site.register(models.Like)
 admin.site.register(models.Comment)
+admin.site.register(models.Follow)
+

@@ -16,17 +16,18 @@
             <form class="likeform" method='POST' enctype='multipart/form-data' novalidate>
               {% csrf_token %}
               <input type="hidden" class='new_post' name="post" value={{post.id}}>
-              <input class='user' type='hidden' name='user' value={{request.user}}>
-              <button class='postLike' value={{post.id}} type='submit' style='border: none'><i class="far fa-heart"></i></button>
+              <input class='user' type='hidden' name='user' value={{request.user.id}}>
+              <button class='postLike'' value={{post.id}} type='submit' style='border: none'><i class="far fa-heart"></i></button>
              </form>
              </article>
 
             <hr>
-        </li>
-
+        
+        
+        
         
 
-        </section>
+    </section>
 
       <section class='commentsAndLikes'>
         <form  type='submit' id='commentForm' method="POST" enctype="multipart/form-data">
@@ -47,6 +48,7 @@
         <hr>
       {% endfor %}
       </section>
+    </li>
   </ul>
 
 

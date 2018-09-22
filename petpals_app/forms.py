@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from petpals_app.models import UserProfileInfo, Post, Like, Comment
+from petpals_app.models import UserProfileInfo, Post, Like, Comment, Follow
 
 
 # class UserForm(forms.ModelForm):
@@ -33,6 +33,13 @@ class UserProfileInfoForm(forms.ModelForm):
     class Meta():
         model = UserProfileInfo
         fields = ('name', 'bio', 'profile_picture', 'breed', 'age')
+    
+    def clean(self):
+        cleaned_data = super(UserProfileInfoForm, self).clean()
+        age = cleaned_data.get("age")
+
+        if not isinstance(age,int):
+            raise forms.ValidationError("Please enter a number for pet's age.")
 
 
 class PostForm(forms.ModelForm):
@@ -40,6 +47,11 @@ class PostForm(forms.ModelForm):
     class Meta():
         model = Post 
         fields = ('image','caption')
+    def clean_caption(self):
+        print ('b ')
+
+    def clean_image(self):
+        print ('a ')
 
 
 class LikeForm(forms.ModelForm):
@@ -53,3 +65,10 @@ class CommentForm(forms.ModelForm):
     class Meta():
         model = Comment
         fields = ('content',)
+
+
+class FollowForm(forms.ModelForm):
+
+    class Meta():
+        model = Follow
+        fields = ('user_to', 'user_from')

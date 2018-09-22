@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, LikeForm, CommentForm
+from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, LikeForm, CommentForm, FollowForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import User, UserProfileInfo, Post, Like, Comment
+from .models import User, UserProfileInfo, Post, Like, Comment, Follow
 
 #for pagination
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -18,13 +18,15 @@ from django.core import serializers
 from django.http import QueryDict
 from django.views.decorators.csrf import csrf_exempt
 
+def profile_view(request):
+    user = request.user
+    posts = Post.objects.filter(user = request.user)
+    return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
 
-# def profile_view(request):
-#     user = request.user
-#     print(f'the user is {request.user}')
-   
-#     return render(request, 'petpals_app/profile_view.html', {'user': user})
 
+def other_profile(request, pk):
+    user = User.objects.get(id=pk)
+    return render(request, 'petpals_app/other_profile.html', {'user': user})
 
 def index(request):
     return render(request, 'petpals_app/index.html')
@@ -42,6 +44,9 @@ def sendJsonLikes(request):
     likes = list(Like.objects.all().values('post', 'user'))
     return JsonResponse({'likes': likes})
     
+def sendJsonFollows(request):
+    follows = list(Follow.objects.all().values('user_to', 'user_from'))
+    return JsonResponse({'follows': follows})
 
 @login_required
 def special(request):
@@ -95,28 +100,28 @@ def profile_create(request):
     if request.method == "POST":
         print('method is a post ')
         
-        profile_form = UserProfileInfoForm(request.POST, request.FILES)
-
-        if profile_form.is_valid():
-            profile = profile_form.save(commit=False)
+        form = UserProfileInfoForm(request.POST, request.FILES)
+        from django.conf import settings
+        print('settings media root {}'.format(settings.PICTURE_ROOT))
+        if form.is_valid():
+            profile = form.save(commit=False)
             profile.user = request.user
             profile.save()
             
             #make a redirect to 
             
+            print(request.POST)
+            print(request.FILES)
+
             return render(request, 'petpals_app/profile_view.html')
         else: 
-            print(profile_form.errors)
-    else:
-        form = UserProfileInfoForm()
+            print(form.errors)
+            return render(request, 'petpals_app/profile_create.html', {'form': form})
+
     print('about to render')
+    form = UserProfileInfoForm()
+
     return render(request, 'petpals_app/profile_create.html', {'form': form})
-
-def profile_view(request):
-    user = request.user
-    posts = Post.objects.filter(user = request.user)
-    return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
-
 
 
 @login_required
@@ -151,28 +156,51 @@ def post_like(request, pk):
             print(request.user.id)
 
             like = Like(post_id=pk, user=request.user)
-            like.save()
+            like.save()  
         # hell yeah!
             return JsonResponse({'message': f'{request.user.username} liked the post with id of {pk}'})
-            
+
+@csrf_exempt
+def follow(request, pk):
+    user_to = User.objects.get(id=pk)
+    if Follow.objects.filter(user_to=pk, user_from=request.user.id).exists():
+        print('THIS EXISTS')
+        print('here')
+    else:
+        if request.method == "POST":
+            print("USER: ")
+            print(request.user.id)
+            print ('USER TO:')
+            print (user_to.id)
+            follow = Follow(user_to=user_to, user_from=request.user)
+            follow.save()  
+            return JsonResponse({'message': f'{request.user.username} followed the user with id of {pk}'})
+
 
 @login_required
 def post_create(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            caption = form.cleaned_data.get('caption')
-            created_at = timezone.datetime.now()
-            if 'image' in request.FILES:
-                image = form.cleaned_data.get('image')
-                image=request.FILES['image']
-            post = Post(caption=caption, image=image, created_at=created_at,user=request.user)
-            print(post)
-            post.save()
-            return redirect('feed')
-        else: 
-            print('form invalid')
-            # return render(request,'petpals_app/post.html'),{'Error': 'There was an error with your post. Please re-upload image.'}
+        form = PostForm(request.POST, request.FILES)
+        print(request.FILES)
+        print(form.errors)
+        print('first')
+
+        # TODO: This code replaces django's form validation because it
+        # was missing our image - replace this code with proper validation
+        try:
+            caption = request.POST['caption']
+            image = request.FILES['image']
+        except KeyError as e:
+            return HttpResponse('Form invalid, missing key {}'.format(e))
+
+
+        created_at = timezone.datetime.now()
+        image = request.FILES['image']
+            
+        post = Post(caption=caption, image=image, created_at=created_at, user=request.user)
+        print(post)
+        post.save()
+        return redirect('feed')
     else: 
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})
