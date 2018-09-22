@@ -24,4 +24,5 @@ urlpatterns = [
     path('profile_edit', views.profile_edit, name='profile_edit'),
     path('api/follows', views.sendJsonFollows, name="sendJsonFollows"),
     path('user/<int:pk>/follow', views.follow, name="follow"),
+    path('likes', views.view_likes, name='view_likes'),
 ]
