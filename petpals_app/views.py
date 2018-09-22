@@ -140,6 +140,17 @@ def feed(request):
             Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
         ).distinct().order_by('-created_at')
         form = CommentForm()
+        
+        for post in posts:
+            likes = Like.objects.filter(post=post)
+            print(list(likes))
+            print('END')
+            
+            likes = likes.all().count()
+            print(likes)
+            post.likes = likes
+
+
         return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
 
 @csrf_exempt
