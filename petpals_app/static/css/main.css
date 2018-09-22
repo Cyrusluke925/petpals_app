@@ -114,9 +114,9 @@ ul {
 
 .captionAndLike {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     justify-content: flex-end;
-    width: 301px;
+    width: 600px;
 }
 
 .commentContent {
@@ -128,14 +128,37 @@ ul {
 
 }
 
+
+
 .theComment {
     width: 301px;
 }
 
+.userInformation {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
 
+.user_profile_image {
+    max-height: 40px;
+    border-radius: 50%;
+    height: 2.5em;
+    width: 2.4em;
+}
 
+h4 {
+    padding-left: 1.5em;
+}
 
+.container {
+    background-color: #FAFAFA
+}
 
+.singlePost {
+    max-width: 600px;
+    margin-right: 0;
+}
 
 
 /* --------------------------------NAVBAR TESTING -------------------------------- */
@@ -177,4 +200,10 @@ header {
 
 .nav {
     padding-right: 2em;
+}
+
+.thePosts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

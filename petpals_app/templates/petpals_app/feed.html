@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<div>
+<div class='thePosts'>
     {% for post in posts %}
     <hr>
     <ul class='singlePost'>
@@ -15,14 +15,14 @@
                 </section>
                 <img src="{{post.image.url}}" width="598px">
                 <article class = 'captionAndLike'>
-                   
                     <form class="likeform" method="POST" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
                     <input type='hidden' class='new_post' name="post" value={{post.id}}>
                     <input class='user' type='hidden' name='user' value={{request.user.id}}>
                     <button class='postLike' value={{post.id}} type='submit' style='border: none'><i class="far fa-heart"></i></button>
-                    </form>
                     <p>{{post.likes}}</p>
+                    </form>
+                    
                     {{post.caption}}
 
                     <article class="commentsAndLikes">
@@ -37,7 +37,7 @@
                                 <ul class='commentList'>
                                     <li class='comment'>
                                         <article class='theComment'>
-                                            <p class='commentUser' data-id='{{comment.user}}'><a href={% url 'other_profile' pk=comment.user.id %}>{{ comment.user }}</a></p><p class='commentContent' data-id='{{comment.post.id}}'> {{ comment.content }}</p>
+                                            <p class='commentUser' data-id='{{comment.user}}'><a href={% url 'other_profile' pk=comment.user.id %}>{{ comment.user }}</a></p><p class='commentContent' data-id='{{comment.post.id}}' > {{ comment.content }}</p>
                                         </article>
                                     </li>
                                 </ul>
