@@ -18,11 +18,6 @@ from django.core import serializers
 from django.http import QueryDict
 from django.views.decorators.csrf import csrf_exempt
 
-def profile_view(request):
-    user = request.user
-    posts = Post.objects.filter(user = request.user)
-    return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
-
 
 def other_profile(request, pk):
     user = User.objects.get(id=pk)
@@ -205,6 +200,11 @@ def post_create(request):
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})
 
+def profile_view(request):
+    user = request.user
+    posts = Post.objects.filter(user = request.user)
+    return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
+    
 @login_required
 def explore(request):
     photo = Post.objects.all()
