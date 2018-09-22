@@ -22,6 +22,7 @@ class UserProfileInfo(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class Post(models.Model):
     caption = models.TextField(blank=True, max_length=255, default="", null=True)
     image = models.ImageField(upload_to=settings.PICTURE_ROOT)

@@ -41,7 +41,6 @@ class UserProfileInfoForm(forms.ModelForm):
         if not isinstance(age,int):
             raise forms.ValidationError("Please enter a number for pet's age.")
 
-
 class PostForm(forms.ModelForm):
     
     class Meta():
