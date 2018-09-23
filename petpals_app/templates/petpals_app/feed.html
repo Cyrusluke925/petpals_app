@@ -15,7 +15,7 @@
                 </section>
                 <img src="{{post.image.url}}" width="598px">
                 <article class = 'captionAndLike'>
-                   
+
                     <form class="likeform" method="POST" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
                     <input type='hidden' class='new_post' name="post" value={{post.id}}>
@@ -26,22 +26,28 @@
                     {{post.caption}}
 
                     <article class="commentsAndLikes">
-                        <form type='submit' id='commentForm' method='POST' enctype="multipart/form-data">
+                        <form id='commentForm' method='POST' enctype="multipart/form-data" type="submit">
                             {% csrf_token %}
                             <input type='text' id="commentBox" name='content' placeholder="Add Comment">
                             <input type='hidden' name='post_id' required id='id_post_id' value={{post.id}} />
                             </form>
                             <div class="commentsContainer">
                             {% for comment in post.comments.all %}
-                           
+                        
                                 <ul class='commentList'>
                                     <li class='comment'>
                                         <article class='theComment'>
-                                            <p class='commentUser' data-id='{{comment.user}}'><a href={% url 'other_profile' pk=comment.user.id %}>{{ comment.user }}</a></p><p class='commentContent' data-id='{{comment.post.id}}''> {{ comment.content }}</p>
+                                            <p class='commentUser' data-id='{{comment.user}}'><a href={% url 'other_profile' pk=comment.user.id %}>{{ comment.user }}</a></p><p class='commentContent' data-id='{{comment.post.id}}'> {{ comment.content }}
+                                    {% if comment.user.id == request.user.id %}
+                                    <form class="likeform" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <button class = "delete">X</button>
+                                    </form>
+                                    {% endif %}
                                         </article>
                                     </li>
                                 </ul>
-                                {% endfor %}
+                                {% endfor %}    
                             </div>
                     </article>
 
@@ -53,5 +59,4 @@
     </ul>
     {% endfor %}
 </div>
-
 {% endblock %}

@@ -136,6 +136,15 @@ def feed(request):
             return redirect('feed')
         else: 
             print('form invalid')
+    # elif request.method == 'DELETE':
+    #     print(comment)
+    #     Comment.objects.filter(id=id).delete()
+    #     print(comment)
+    #     instance = comment
+    #     print(instance)
+    #     instance.delete()
+    #     print ('pk'+comment)
+    #     return HttpResponse('')
     else: 
         # print('logged in:', request.user)
         posts = Post.objects.filter(
@@ -259,8 +268,6 @@ def profile_edit(request):
     
 
 def view_likes(request):
-
-
     the_likes = list(Like.objects.all())
     like_list = []
     for like in the_likes:
@@ -268,3 +275,4 @@ def view_likes(request):
             like_list.append(like)
             print(like_list)
     return render(request, 'petpals_app/view_likes.html', {'like_list': like_list})
+

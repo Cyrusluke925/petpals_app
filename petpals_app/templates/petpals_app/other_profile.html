@@ -2,20 +2,32 @@
 {% load staticfiles %}
 
 {% block profile_view %}
-    <form class="followform" method='POST' enctype='multipart/form-data' novalidate>
-        {% csrf_token %}
-        <input type="hidden" class="userTo" name="userTo" value={{user.id}}>
-        <input class='userFrom' type='hidden' name='userFrom' value={{request.user.id}}>
-        <button class='follow'' value={{user.id}} type='submit'>Follow</button>
-    </form>
+    <!-- custom styling -->
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <h1>{{user.username}}</h1>
-    <img src="{{ user.profile.profile_picture.url }}" width="250px" alt="">
-    <p>Name: {{ user.profile.name }}</p>
-    <p>Age: {{ user.profile.age }}</p>
-    <p>Breed: {{ user.profile.breed }}</p>
-    <p>Bio: {{ user.profile.bio }}</p>
-    <hr>
     
+    <div class = "profileInfo">
+    <div class = "profilePic">
+        <img src="{{ user.profile.profile_picture.url }}" width="250px" alt="">
+    </div>
+
+    <div class = "profileInfo">
+        <form class="followform" method='POST' enctype='multipart/form-data' novalidate>
+            {% csrf_token %}
+            <input type="hidden" class="userTo" name="userTo" value={{user.id}}>
+            <input class='userFrom' type='hidden' name='userFrom' value={{request.user.id}}>
+            <button class='follow' value={{user.id}} type='submit'>Follow</button>
+        </form>
+
+        <p>Name: {{ user.profile.name }}</p>
+        <p>Age: {{ user.profile.age }}</p>
+        <p>Breed: {{ user.profile.breed }}</p>
+        <p>Bio: {{ user.profile.bio }}</p>
+    </div>
+    </div>
+
+    <hr>
+
     <h1> Posts by {{user.username}} </h1>
     {% for post in posts %}
         <img src="{{ post.image.url }}" width="250px" alt="">

@@ -96,6 +96,23 @@ $('.follow').on('click', function(element){
     })  
 })
 
+$('#commentBox').on('submit',(e)=>{
+    e.preventDefault()
+})
+
+$('.delete').on('click',(e)=>{
+    e.preventDefault()
+    $.ajax({
+        method: 'DELETE',
+        url:'/feed',
+        success: function onSuccess(e) {
+            console.log('success')
+        },
+        error: function onError(err) {
+            console.log(err)
+        }
+    })  
+})
 
 
 
