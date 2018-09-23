@@ -96,11 +96,17 @@ $('.follow').on('click', function(element){
     })  
 })
 
-
-
-
-
-
-
-
-
+$('.exploreBox img').hover(
+    function() {
+    $(this).css('opacity', '.3')  
+    $(this).siblings().fadeIn(500).hover (
+        function () {
+            $(this).show();
+            $(this).siblings().css('opacity', '.3') 
+        }
+    )
+    }, function () {
+        $('.exploreBox img').css('opacity', '1')  
+        $('.exploreBox img').siblings().hide()
+    }
+);
