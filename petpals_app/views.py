@@ -32,6 +32,13 @@ def index(request):
 def about(request):
     return render(request, 'petpals_app/about.html')
 
+def user_feed(request):
+    print(request.user.id)
+    posts = list(Post.objects.filter(
+            Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
+        ).values('post','user')
+        )
+    return JsonResponse({'posts': posts})
 
 def sendJsonUsers(request):
     users = list(User.objects.all().values('username', 'email'))
@@ -246,7 +253,7 @@ def profile_edit(request):
     user = User.objects.get(id=request.user.id)
     print(user.profile.name)
     # Created not referenced elsewhere because function requires a tuple
-    user, created  = UserProfileInfo.objects.get_or_create(user=user)
+    # user, created  = UserProfileInfo.objects.get_or_create(user=user)
     user.save()
     if request.method == "POST":
         form = UserProfileInfoForm(request.POST, instance=user)
