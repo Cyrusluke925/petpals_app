@@ -383,7 +383,7 @@ header {
 }
 .likeBox span {
     font-size: 1.5em;
-    width:35vw;
+    width:30vw;
     display:flex;
     justify-content: flex-end;
 }
@@ -502,7 +502,7 @@ header {
 }
 .likeBox span {
     font-size: 1.2em;
-    width:40vw;
+    width:32vw;
 }
 .likeBox img {
     margin-left:1.5em;
