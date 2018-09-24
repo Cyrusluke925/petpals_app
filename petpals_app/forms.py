@@ -46,26 +46,6 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError("Passwords do not match, please try again!")
 
 class UserProfileInfoForm(forms.ModelForm):
-    # name=forms.CharField(
-    #     label='',
-    #     widget=forms.TextInput(
-    #         attrs={'placeholder':'Name'}
-    #         )
-    #     )
-    
-    # breed=forms.CharField(
-    #     label='',
-    #     widget=forms.TextInput(
-    #         attrs={'placeholder':'Breed'}
-    #         )
-    #     )
-    
-    # age=forms.CharField(
-    #     label='',
-    #     widget=forms.NumberInput(
-    #         attrs={'placeholder':'Age'}
-    #         )
-    #     )
 
     bio=forms.CharField(
         label='',
@@ -79,6 +59,14 @@ class UserProfileInfoForm(forms.ModelForm):
         fields = ('name', 'breed', 'age', 'bio','profile_picture')
 
 class PostForm(forms.ModelForm):
+    caption=forms.CharField(
+        label='',
+        widget=forms.Textarea(
+            attrs={'placeholder':'Aww! Enter a caption!'}
+            )
+        )
+    
+    
     class Meta():
         model = Post 
         fields = ('image','caption')

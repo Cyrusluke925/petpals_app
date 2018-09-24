@@ -305,8 +305,8 @@ header {
 
 
 .regAcc, .regFormBody{
-    text-align: right; 
     margin-right:.25em;
+    text-align: center;
 }
 
 #id_username, #id_email, #id_password, #id_confirm_password, .regFormBtn{
@@ -321,6 +321,7 @@ header {
    background-color:#FAFAFA;
    padding: 1em;
    width:40%;
+   padding-top: 8em;
 }
 
 h1.regAcc, h1.profWelc{
@@ -358,6 +359,11 @@ input.regFormBtn{
     .catdog, .regFormArea{width: 100%;}
     .catdog{height: 50%;}
     .regTable,input.regFormBtn{font-size:1em;}
+
+    #id_username, #id_email, #id_password, #id_confirm_password, .regFormBtn{
+        margin-top:.1em;
+        font-size: 1.75em;
+    } 
 
     .regFormContainer{
         display: flex;
@@ -409,19 +415,6 @@ textarea {
     min-width: none;
 }
 
-button{
-    color:white;
-    background-color: #337ab7;
-    padding:1em;
-    font-size:1em;
-}
-button:hover{
-    color:#337ab7;
-    background-color:white;
-    border: 1px solid #337ab7;
-    
-}
-
 input#id_bio{
     border: 1px solid #337ab7; 
     width:29em;
@@ -447,10 +440,53 @@ input#id_breed, input#id_name, input#id_age{
         height: 65%;
         padding-top: .1em;
     }
-    
+
     .profWelc{
         margin-top:.1em;
         font-size: 1.55em;
     }
 }
 /* -------------- END PROFILECREATE.HTML ----------------- */
+
+.postContainer{
+   display: flex;
+   vertical-align: middle;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   margin-bottom:10em;
+}
+
+.postHdrNew{
+    margin-bottom:1em;
+}
+
+.postNewForm{
+    height:100%;
+}
+
+
+
+.postContainer{
+    display:flex;
+    flex-direction: column;
+}
+
+.postPic{
+   
+    background: url("/static/adorable-animals.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: none;
+    height:100%;
+    
+}
+
+.postFormText{
+    z-index: 1;
+}
+
+.postFormGroup{
+    display:flex;
+}
