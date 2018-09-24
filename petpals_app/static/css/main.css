@@ -302,6 +302,8 @@ header {
 /* ------------------------------------------------------ */
 .regFormContainer{display:flex;}
 .regTable{font-size:2em;}
+.regDjgoForm{font-family: 'Helvetica';}
+.createRegAcc{width:50%;}
 
 
 .regAcc, .regFormBody{
@@ -313,9 +315,7 @@ header {
     margin-top:1em;
     font-size: 1.75em;
 } 
-.regDjgoForm{
-    font-family: 'Helvetica';
-}
+
 
 .regFormArea{
    background-color:#FAFAFA;
@@ -340,9 +340,6 @@ h1.regAcc, h1.profWelc{
     min-width: none;
 }
 
-.createRegAcc{
-    width:50%;
-}
 
 input.regFormBtn{
     color:white;
@@ -352,7 +349,6 @@ input.regFormBtn{
     padding: 1em;
     font-size: 1.5em;
 }
-
 
 
 @media screen and (max-width: 768px) {
@@ -379,10 +375,10 @@ input.regFormBtn{
 
 
 
-
 /* ------------------------------------------------------ */
 /* --------------- PROFILECREATE.HTML-------------------- */
 /* ------------------------------------------------------ */
+.profWelc{margin-top:2em;}
 
 textarea {
     resize: none;
@@ -401,9 +397,7 @@ textarea {
     padding:1em;
 }
 
-.profWelc{
-    margin-top:2em;
-}
+
 .catProfPic{
     width:65%;
     position: relative;
@@ -448,6 +442,11 @@ input#id_breed, input#id_name, input#id_age{
 }
 /* -------------- END PROFILECREATE.HTML ----------------- */
 
+.postHdrNew{margin-bottom:1em;}
+.postNewForm{height:100%;}
+.postFormText{z-index: 1;}
+.postFormGroup{display:flex;}
+
 .postContainer{
    display: flex;
    vertical-align: middle;
@@ -456,16 +455,6 @@ input#id_breed, input#id_name, input#id_age{
    justify-content: center;
    margin-bottom:10em;
 }
-
-.postHdrNew{
-    margin-bottom:1em;
-}
-
-.postNewForm{
-    height:100%;
-}
-
-
 
 .postContainer{
     display:flex;
@@ -479,14 +468,6 @@ input#id_breed, input#id_name, input#id_age{
     background-repeat: no-repeat;
     background-size: cover;
     min-width: none;
-    height:100%;
-    
+    height:100%; 
 }
 
-.postFormText{
-    z-index: 1;
-}
-
-.postFormGroup{
-    display:flex;
-}
