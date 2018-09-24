@@ -3,11 +3,26 @@ body {
 }
 
 header {
+    
     background-color: #FFFFFF;
     width: 100%;
     margin: 0;
-    /* position: sticky; */
+
 }
+
+.navBar {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.petpalslogo {
+    align-self: center;
+    height: 100%;
+}
+
+    /* position: sticky; */
+
 
 main {
     background-color: #FAFAFA;
@@ -22,9 +37,15 @@ main {
 .title {
     width: 100%;
     margin-left: 2em;
+    margin-top: 1em;
 }
 
 /* ------------------- POSTS IN FEED -------------------- */
+
+.postImage {
+    width: 598px;
+}
+
 
 ul {
     padding-left: 0;
@@ -439,7 +460,13 @@ input#id_breed, input#id_name, input#id_age{
 }
 /* -------------- END PROFILECREATE.HTML ----------------- */
 
-.postHdrNew{margin-bottom:1em;}
+.postHdrNew{
+
+    margin-bottom:1em;
+    font-family: pacifico; 
+    font-size: 4em;
+
+    }
 .postNewForm{height:100%;}
 .postFormText{z-index: 1;}
 .postFormGroup{display:flex;}
@@ -750,5 +777,63 @@ input#id_breed, input#id_name, input#id_age{
     }
     .aboutHeader h1 {
         font-size: 3em;
+    }
+
+    .navbar-icon {
+        font-size: 1.5em;
+    }
+
+    .title {
+        font-size: 0.8em;
+        margin-top: 1em;
+    }
+}
+
+
+
+@media screen and (max-width: 460px) {
+    .title {
+        font-size: 0.7em;
+        margin-top: 1em;
+
+    }
+
+    .navbar-icon {
+        font-size: 1.3em;
+    }
+}
+
+
+@media screen and (max-width: 410px) {
+    .title {
+       margin-top: 1em;
+       margin-right: 1em;
+       margin-left: 0;
+    }
+    .postImage {
+        width: 10em;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .postImage {
+        width: 28em;
+
+    }
+
+    .userInformation {
+        width: 28em;
+    }
+
+    .singlePost {
+        width: 28em;
+    }
+
+    .post {
+        width: 28em;
+    }
+
+    .captionAndLike {
+        width: 28em;
     }
 }
