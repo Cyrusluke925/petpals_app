@@ -113,6 +113,8 @@ $('.postLike').on('click', function(element){
         form: form
     }
 
+    console.log(theData)
+
     likeURL = `http://localhost:8000/post/${post}/like`
 
     $.ajax({
@@ -159,9 +161,52 @@ $('.follow').on('click', function(element){
     })  
 })
 
-$('#commentBox').on('submit',(e)=>{
-    e.preventDefault()
+$( "#commentForm" ).on( "submit", function( event ) {
+    event.preventDefault();
+    let form = ( $('#commentBox').serialize());
+    
+    let post = $('#id_post_id').attr('value')
+    let user = $('#commentForm').attr('value')
+    
+    let comData = {
+        user:user,
+        form:form
+    }
+    console.log('COMM DATAAA ', comData)
+
+    commentURL = `http://localhost:8000/post/${post}/comment`
+    $.ajax({
+        method: 'POST',
+        url: commentURL,
+        data: comData,
+        success: function onSuccess(jsonResp) {
+            console.log('success')
+            console.log('JSON',jsonResp)
+     
+            // $('.commentList').append(
+               
+            //     `<li>
+            //             <p class='commentUser' data-id='{{comment.user}}'>
+            //                 <a href={% url 'other_profile' pk=comment.user.id %}>
+            //                 {{ comment.user }}</a>
+            //             </p>
+                        
+            //             <p class='commentContent' data-id='{{comment.post.id}}' > 
+            //                 {{ comment.content }}
+            //             </p>
+            //     </li>`
+            // )
+            // location.reload()
+
+        },
+        error: function onError(err1, err2, err3) {
+            console.log(err1, err2,err3)
+        }
+    })  
 })
+
+
+
 
 $('.delete').on('click',(e)=>{
     e.preventDefault()

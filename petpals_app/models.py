@@ -38,12 +38,12 @@ class Post(models.Model):
 
 class Comment(models.Model):
     content = models.CharField(max_length=300, default="")
-    created_at = models.DateTimeField()
+    # created_at = models.DateTimeField()
     user = models.ForeignKey(User, on_delete = models.CASCADE)    
     post = models.ForeignKey(Post, on_delete = models.CASCADE, related_name='comments')
 
-    def created_at_formatted(self):
-        return self.created_at.strftime('%b %e %Y')
+    # def created_at_formatted(self):
+    #     return self.created_at.strftime('%b %e %Y')
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')

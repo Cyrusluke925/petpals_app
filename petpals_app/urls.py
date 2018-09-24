@@ -17,6 +17,9 @@ urlpatterns = [
     path('api/likes', views.sendJsonLikes, name="sendJsonLikes"),
     path('post/<int:pk>/like', views.post_like, name="post_like"),
     path('api/feed', views.user_feed, name="user_feed"),
+    path('post/<int:pk>/comment',views.comment_create, name="comment_create"),
+    path('api/comments', views.sendJsonComments, name="sendJsonComments"),
+
 
     path('about', views.about, name='about'),
     
