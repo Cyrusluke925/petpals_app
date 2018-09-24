@@ -1,11 +1,18 @@
 {% extends "petpals_app/base.html" %}
+
 {% block like_list %}
-{% for like in like_list %}
-    <p><a href={% url 'other_profile' pk=like.user.id %} >{{like.user}}</a> liked <img src="{{like.post.image.url}}" width="50px;"></p>
-
-
-{% endfor %}
-
-
-
+<div class="viewLikesContainer">
+    <div class="viewLikes">
+    {% for like in like_list %}
+    <div class="likeBox">
+        <div>
+            <span><a href={% url 'other_profile' pk=like.user.id %}>{{like.user}}</a></span><span>liked your photo </span>
+        </div>
+        <div class="likesPhoto">
+            <img src="{{like.post.image.url}}">
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
 {% endblock %}

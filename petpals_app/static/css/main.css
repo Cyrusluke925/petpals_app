@@ -102,19 +102,15 @@ li{
 }
 
 .user_profile_image {
-    max-height: 40px;
+    width:40px;
     border-radius: 50%;
-    height: 2.5em;
-    width: 1.8em;
-    border: 0.5px solid black;
+    object-fit:cover;
 }
 
 .user_profile_picture {
-    max-height: 40px;
+    width:40px;
     border-radius: 50%;
-    height: 2.5em;
-    width: 2.5em;
-    border: 0.5px solid black;
+    object-fit:cover;
 }
 
 h4 {
@@ -178,7 +174,9 @@ header {
     align-items: center;
 }
 
-/* Explore Page */
+/* ------------------------------------------------------ */
+/* ----------- EXPLORE.HTML/EXPLORE PAGE ---------------- */
+/* ------------------------------------------------------ */
 .exploreContainer {
     display:flex;
     flex-direction: column;
@@ -212,7 +210,6 @@ header {
     text-align: center;
     font-size:1.2em;
 }
-
 .step-links {
     display: flex;
     justify-content:center;
@@ -471,3 +468,287 @@ input#id_breed, input#id_name, input#id_age{
     height:100%; 
 }
 
+/* -------------- END EXPLORE.HTML ------------------ */
+
+/* ------------------------------------------------------ */
+/* ------ PROFILE_VIEW.HTML/YOUR PROFILE PAGE ----------- */
+/* ------------------------------------------------------ */
+.profile_wrapper {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.profile_info_container {
+    display:flex;
+    flex-direction:column;
+}
+.username {
+    display:flex;
+    justify-content: center;
+    margin-bottom:1em;
+}
+.not_username {
+    display:flex;
+}
+.profile_name_block{
+    display:flex;
+    /* flex-direction:column; */
+    justify-content: center;
+    align-items: center;
+    margin: 0 2em;
+}
+.profile_pic_block img{
+    border-radius:50%;
+    width:250px;
+    object-fit:cover;
+}
+.profile_text_block {
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 2.6em;
+    font-size:1.2em;
+    line-height:1.2em;
+}
+.profile_text_block a {
+    border: 1px black solid;
+    padding:.3em .6em;
+    text-decoration: none !important;
+    color:black;
+    margin:1em 0;
+}
+.profile_text_block a:hover {
+    color:black;
+}
+
+/* POSTS ON PROFILE PAGE */
+.profile_posts_container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.profile_posts_header {
+    margin-top:5em;
+    display:flex;
+    justify-content: center;
+}
+.profile_posts_header h1 {
+    font-size:1.5em;
+}
+.profile_posts {
+    display:flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    margin: .5em 0 2.5em 0;    
+} 
+.profile_post_box {
+    width:300px;
+    align-items: center;
+    justify-content: center;
+    margin: .4em; 
+    position:relative;
+}
+.profile_post_box img {
+    width:100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+.post_overlay {
+    display:none;
+    width:300px;
+    position:absolute;
+    top: 42%; left: 0; bottom: 0; right: 0;
+    margin: auto;
+    font-weight: bold;
+    text-align: center;
+    font-size:1.2em;
+}
+/* ------------ END PROFILE_VIEW.HTML ------------------- */
+
+ /* ----------------------------------------------------- */
+/* ---- OTHER_PROFILE.HTML/OTHER USER PROFILE PAGE ------ */
+/* ------------------------------------------------------ */
+.follow {
+    border: 1px black solid;
+    background-color:#FAFAFA;
+    padding:.3em .6em;
+    text-decoration: none !important;
+    color:black;
+    margin:1em 0;
+}
+.follow a:hover {
+    color:black;
+}
+/* ------------ END OTHER_PROFILE.HTML ------------------ */
+
+/* ------------------------------------------------------ */
+/* ------------ VIEW_LIKES.HTML/LIKES PAGE -------------- */
+/* ------------------------------------------------------ */
+.viewLikes {
+    display:flex;
+    flex-direction: column;
+    margin: 3em 0;
+    width:70vw;
+}
+.viewLikesContainer {
+    display:flex;
+    justify-content: center;
+}
+.likeBox {
+    display:flex;
+    margin: 1em 0;
+    align-items:center;
+    justify-content: space-between;
+    padding:1em 0;
+    width:55vw;
+}
+.likeBox span {
+    font-size: 1.5em;
+    width:30vw;
+    display:flex;
+    justify-content: flex-end;
+}
+.likeBox img {
+    width:150px;
+}
+.aboutContainer {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+}
+.aboutBlurb {
+    width:50vw;    
+    font-size: 1.5em;  
+    margin-bottom:2em;
+    line-height:1.3em;
+
+}
+.aboutHeader h1 {
+    font-family: 'pacifico';
+    color: #337ab7;
+    font-size: 3.5em;
+    margin:0 0 .4em 0;;
+}
+.aboutTag h3 {
+    margin:0 0 1em 0;
+    font-size:2em;
+}
+.site-title-about {
+    display:flex;
+    justify-content: flex-start;
+    font-family: 'pacifico';
+    color: #337ab7;
+    font-size: 1em;  
+    margin-left:2em; 
+}
+.backToHome {
+    font-size:1.2em;
+}
+
+/* ------------------------------------------------------ */
+/* ------------ NAT'S MEDIA QUERIES --------------------- */
+/* ------------------------------------------------------ */
+@media (max-width:900px) and (min-width:600px) {
+    .profile_text_block {
+        font-size:1.2em;
+    }
+    .profile_pic_block img {
+        width:250px;
+        margin: .35em 0 1em 0;
+        object-fit:cover;
+    }
+    .not_username {
+        flex-direction:column;
+    } 
+    .profile_pic_block  {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .profile_text_block {
+            align-items: center;
+    }
+    .not_username {
+        width:80vw;
+    }
+    .aboutBlurb {
+        width:70vw;    
+        font-size: 1.3em;  
+        margin-bottom:1em;
+    }
+    .aboutHeader h1 {
+        font-size: 3.5em;
+    }
+    .aboutTag h3 {
+        font-size:1.6em;
+    }
+    .likeBox {
+        width:70vw;
+    }
+    .likeBox span {
+        font-size: 1.4em;
+    }
+}
+
+/* PHONE VIEW */
+@media screen and (max-width: 600px) {
+    .profile_text_block p {
+    font-size:1em;
+    }
+    .profile_pic_block  {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .profile_pic_block img {
+        width:250px;
+        margin: .35em 0 1em 0;
+        object-fit:cover;
+    }
+    .profile_text_block a {
+        border: 1px black solid;
+        margin-bottom:1em;
+        font-size:.9em;
+    }
+    .not_username {
+        flex-direction:column;
+    }
+    .profile_text_block {
+        align-items: center;    
+    }
+    .not_username {
+        width:95vw;
+    }
+    .likeBox span {
+        font-size: 1.2em;
+        width:32vw;
+    }
+    .likeBox img {
+        margin-left:1.5em;
+        width:125px;
+    }
+    .likeBox {
+        justify-content: space-around;
+        padding:.25em;
+        width:70vw;
+    }
+    .site-title-about {
+        font-size: .8em;   
+    }
+    .aboutTag h3 {
+        font-size: 1.5em;
+        width:90vw;
+        text-align: center;
+    }
+    .aboutBlurb { 
+        font-size: 1.2em;
+        width:80vw;
+    }
+    .aboutHeader h1 {
+        font-size: 3em;
+    }
+}

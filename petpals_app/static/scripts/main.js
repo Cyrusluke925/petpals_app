@@ -7,64 +7,64 @@
 //     return false; // prevent loading URL from href
 // });
 
-$(document).ready(function() {
+// $(document).ready(function() {
 
-    var user = $('.user').attr('value')
-    console.log(user)
+//     var user = $('.user').attr('value')
+//     console.log(user)
 
-    $.ajax({
-        method: 'Get',
-        url: '/api/likes',
-        data: user,
-        success: function handleSuccess (json) {
-            console.log(json.likes)
-            console.log('logged in:',user)
-            let likesArray = json.likes
+//     $.ajax({
+//         method: 'Get',
+//         url: '/api/likes',
+//         data: user,
+//         success: function handleSuccess (json) {
+//             console.log(json.likes)
+//             console.log('logged in:',user)
+//             let likesArray = json.likes
 
-            new_array = []
-            $.each(likesArray, function () {
-                if (user == this.user) {
-                    console.log('there is a like for this user in the db')
-                    console.log(this.post)
-                    new_array.push(this.post)
-                }
-            });
-            console.log("array of logged in users likes:",new_array)
+//             new_array = []
+//             $.each(likesArray, function () {
+//                 if (user == this.user) {
+//                     console.log('there is a like for this user in the db')
+//                     console.log(this.post)
+//                     new_array.push(this.post)
+//                 }
+//             });
+//             console.log("array of logged in users likes:",new_array)
 
-            $.ajax({
-                method: 'Get',
-                url: '/api/feed',
-                data: user,
-                success: function handleSuccess (json) {
-                    let postArray = json.posts
-                    // console.log(postArray)
-                    new_post_array = []
-                    $.each(postArray, function () {
-                        new_post_array.push(this.post)
-                    });
-                    console.log('array of logged in users feed posts:',new_post_array)
+//             $.ajax({
+//                 method: 'Get',
+//                 url: '/api/feed',
+//                 data: user,
+//                 success: function handleSuccess (json) {
+//                     let postArray = json.posts
+//                     // console.log(postArray)
+//                     new_post_array = []
+//                     $.each(postArray, function () {
+//                         new_post_array.push(this.post)
+//                     });
+//                     console.log('array of logged in users feed posts:',new_post_array)
                     
                    
 
-                    var matches = new_post_array.filter(function(val) {
-                        return new_array.indexOf(val) != -1;
-                    });
+//                     var matches = new_post_array.filter(function(val) {
+//                         return new_array.indexOf(val) != -1;
+//                     });
                 
-                    console.log(matches)
-                }
-            });
-        }
-        });
-    });
+//                     console.log(matches)
+//                 }
+//             });
+//         }
+//         });
+//     });
 
 
 
-function overlap(arr1,arr2) {
-    for(var i = 0; i < new_array.length; ++i)
-    if(new_post_array.indexOf(new_array[i]) != -1)
-        return true;
-    return false;
-}
+// function overlap(arr1,arr2) {
+//     for(var i = 0; i < new_array.length; ++i)
+//     if(new_post_array.indexOf(new_array[i]) != -1)
+//         return true;
+//     return false;
+// }
                             // $.each(postArray, function () {
                                 // if (post == )
                         
@@ -196,5 +196,20 @@ $('.exploreBox img').hover(
     }, function () {
         $('.exploreBox img').css('opacity', '1')  
         $('.exploreBox img').siblings().hide()
+    }
+);
+
+$('.profile_post_box img').hover(
+    function() {
+    $(this).css('opacity', '.3')  
+    $(this).siblings().fadeIn(500).hover (
+        function () {
+            $(this).show();
+            $(this).siblings().css('opacity', '.3') 
+        }
+    )
+    }, function () {
+        $('.profile_post_box img').css('opacity', '1')  
+        $('.profile_post_box img').siblings().hide()
     }
 );

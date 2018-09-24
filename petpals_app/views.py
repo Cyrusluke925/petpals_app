@@ -257,7 +257,7 @@ def explore(request):
     
     return render(request,'petpals_app/explore.html', {'photos':photos})
 
-@login_required 
+@login_required
 def profile_edit(request):
     user = User.objects.get(id=request.user.id)
     print(user.profile.name)
