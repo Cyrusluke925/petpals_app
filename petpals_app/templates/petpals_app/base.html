@@ -34,28 +34,13 @@
                         <div class='petpalslogo'><li class="title"><a class="site-title" href="{% url 'feed' %}">Pet Pals! <i class="fas fa-paw"></i></a></li></div>
                         
                     </ul>
-            <!-- <nav class="navbar navbar-default navbar-static-top">
-                <div class="container">
-                    <ul class="ul-navbar">
-                        {# Django Home Link / Admin Link / Register Link #}
-                        <li class="title"><a class="site-title" href="{% url 'feed' %}">Pet Pals!<i class="fas fa-paw"></i></a></li>
-                        
-                        <<li><a class="navbar-brand" href="{% url 'feed' %}">Feed</a></li> -->
-                        <!-- <section class='icons'>
-                        <li><a href="{% url 'explore' %}" class="navbar-icon"><i class="far fa-compass"></i></a></li>
-                        <li><a class="navbar-icon"><i class="far fa-heart"></i></a></li>
-                        <li><a class="navbar-icon" href="/profile"><i class="far fa-user"></i></a></li>
-                        </section> -->
+
                         {# Some logic on what to display for last item#}
                         {% if user.is_authenticated %}
-                        <!-- <li><a href="{% url 'logout' %}">Logout</a></li> -->
+
                         {% else %}
-                        <!-- <li><a class="navbar-link" href="{% url 'user_login' %}">Login</a></li> -->
-                    
                         {% endif %}
-                    <!-- </ul>
-                </div>
-            </nav>  -->
+
         </header>
 
 
@@ -73,8 +58,7 @@
 
             {% block about %}
             {% endblock %}
-            <!-- {% block profile_create %}
-            {% endblock %} -->
+
             </div>
         </main>
     </body>

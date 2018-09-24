@@ -183,6 +183,9 @@ def post_like(request, pk):
 
     if Like.objects.filter(post=pk, user=request.user.id).exists():
         print('THIS EXISTS')
+        likes = []
+        return JsonResponse({'likes':likes})
+
     else:
         if request.method == "POST":
             print("USER: ")
@@ -190,8 +193,10 @@ def post_like(request, pk):
 
             like = Like(post_id=pk, user=request.user)
             like.save()  
+            likes = list(Like.objects.filter(post=pk).values('post', 'user'))
+
         # hell yeah!
-            return JsonResponse({'message': f'{request.user.username} liked the post with id of {pk}'})
+            return JsonResponse({'likes': likes})
 
 @csrf_exempt
 def follow(request, pk):

@@ -18,7 +18,7 @@
                     {% csrf_token %}
                     <input type='hidden' class='new_post' name="post" value={{post.id}}>
                     <input class='user' type='hidden' name='user' value={{request.user.id}}>
-                    <p>likes: {{post.likes}} </p>
+                    <p>Likes: {{post.likes}} </p>
                     <input type='hidden' class='like_counter' value={{post.likes}}>
                     <button class='postLike' value={{post.id}} type='submit' style='border: none'><i class="far fa-heart"></i></button>
                     </form>

@@ -98,15 +98,20 @@ $.ajax({
     }
 })
 
+
+
+
 $('.postLike').on('click', function(element){
     element.preventDefault();
-    $(this).css('color', 'red')
+    $(this).addClass('fullHeart')
 
     var form = $('.likeform').serialize()
     var post = $(this).attr('value')
     var user = $('.user').attr('value')
-    console.log(post)
-    console.log(user)
+
+    console.log("post liked:", post)
+    console.log("by user according to form:",user)
+    
     var theData = {
         post: post,
         user: user,
@@ -119,15 +124,22 @@ $('.postLike').on('click', function(element){
         method: 'POST',
         url:likeURL,
         data: theData,
-        success: function onSuccess() {
-                console.log('success')
+        success: function onSuccess(json) {
+                console.log(json)
+                likesCount =json.likes.length
+                if (likesCount > 0) {
+                    $('.likeform p').text(`likes: ${likesCount}`)
+                }
         },
         error: function onError(err1, err2, err3) {
             console.log(err)
         }
     })
-
 })
+
+
+
+
 
 $('.follow').on('click', function(element){
     $(this).text('Following')
