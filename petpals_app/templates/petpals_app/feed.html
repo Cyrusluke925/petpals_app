@@ -10,7 +10,7 @@
         <article class='post'>
             <li class="singlePost">
                 <section class='userInformation'>
-                <img class="user_profile_picture" src="{{post.user.profile.profile_picture.url }}" width=30px>
+                <img class="user_profile_picture" src="{{post.user.profile.profile_picture.url }}" width="auto" height="40px">
                 <h4><a href={% url 'other_profile' pk=post.user.id %} >{{post.user.username}}</a></h4>
                 </section>
                 <img src="{{post.image.url}}" width="598px">
