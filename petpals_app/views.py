@@ -32,6 +32,13 @@ def index(request):
 def about(request):
     return render(request, 'petpals_app/about.html')
 
+def user_feed(request):
+    print(request.user.id)
+    posts = list(Post.objects.filter(
+            Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
+        ).values('post','user')
+        )
+    return JsonResponse({'posts': posts})
 
 def sendJsonUsers(request):
     users = list(User.objects.all().values('username', 'email'))
@@ -143,6 +150,15 @@ def feed(request):
             return redirect('feed')
         else: 
             print('form invalid')
+    # elif request.method == 'DELETE':
+    #     print(comment)
+    #     Comment.objects.filter(id=id).delete()
+    #     print(comment)
+    #     instance = comment
+    #     print(instance)
+    #     instance.delete()
+    #     print ('pk'+comment)
+    #     return HttpResponse('')
     else: 
         # print('logged in:', request.user)
         posts = Post.objects.filter(
@@ -241,7 +257,7 @@ def explore(request):
     
     return render(request,'petpals_app/explore.html', {'photos':photos})
 
-@login_required 
+@login_required
 def profile_edit(request):
     user = User.objects.get(id=request.user.id)
     print(user.profile.name)
@@ -266,8 +282,6 @@ def profile_edit(request):
     
 
 def view_likes(request):
-
-
     the_likes = list(Like.objects.all())
     like_list = []
     for like in the_likes:
@@ -275,3 +289,4 @@ def view_likes(request):
             like_list.append(like)
             print(like_list)
     return render(request, 'petpals_app/view_likes.html', {'like_list': like_list})
+

@@ -4,46 +4,66 @@
 
 <head>
     <title>Pet Pals!</title>
-
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <link rel="icon" href="{% static 'pawprint.png' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous" defer></script>
     <script src="{% static 'scripts/main.js' %}" defer></script>
  </head>
 
-
-    <h1> Pet Pals </h1>
-
- 
+<div class="homeBkgd">
+    <div class="loginForm">
+        <div class="adorableAnimals"></div>
+        <div class="homeHeader">
+            <div class="homePetPal"> Pet Pals! </div> 
+            <div class="smfp"><h2>Social Media for Pet Parents</h2></div>
     
-        {% if user.is_authenticated %}
-        <p>Welcome Back, {{ user.username }}!</p><a href="{% url 'feed' %}">Feed</a>
-        <a href="{% url 'logout' %}">Logout</a>
-        {% else %}
-        <div class="container">
-                <div class="login-form">
-                    <form method="post"  action="{% url 'user_login' %}">
-                      {% csrf_token %}
-                      <label for="username">Username:</label>
-                      <input type="text" name="username" placeholder="Username">
-                      <label for="password">Password:</label>
-                      <input type="password" name="password" placeholder="Password">
-                      <input type="submit" name="" value="Login">
-                    </form>
-                  </div>
+            {% if user.is_authenticated %}  
+                <div class="loginWelcome">
+                    <p>Welcome Back, {{ user.username }}!</p>
                 </div>
-        <ul>
-            <li><p>Don't have an account? <a class="navbar-link" href="{% url 'register' %}">Sign Up Here!</a></p></li> 
-    
-        {% endif %}
-    </ul>
-    </div>
-</nav>
-<div class="container">
-{% block content %}
-{% endblock %}
-{% block profile_view %}
-{% endblock %}
+                <div class="loginLinks">
+                    <a href="{% url 'about' %}">About Us</a>
+                    <a href="{% url 'feed' %}">Feed</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+                
+            {% else %}
+            <div class="loginContainer">
+                <form method="post"  action="{% url 'user_login' %}">
+                    {% csrf_token %}
+                    <p><label for="username">Username:</label></p>
+                    <p><input type="text" name="username" placeholder="Username"></p>
+                    <p><label for="password">Password:</label></p>
+                    <p><input type="password" name="password" placeholder="Password"></p>
+                        <p><input class="homeLogin" type="submit" name="" value="Login"></p>
+                </form>  
+                <div class = "loginSignUp">
+                    <ul class="ulSignUp">
+                        <li><p>Don't have an account?
+                                <a class="navbar-link" href="{% url 'register' %}">Sign Up Here!</a>
+                            </p>
+                        </li> 
+                        <li><p>Learn more
+                                <a class="navbar-link" href="{% url 'about' %}">About Us!</a>
+                            </p>
+                        </li> 
+                    </ul>
+                </div>
 
+            </div>
+        </div>
+        
+        {% endif %}
+    
+</div>
+
+    <div class="container"></div>
+        {% block content %}
+        {% endblock %}
+        {% block profile_view %}
+        {% endblock %}
+    </div>
 </div>
 </body>
 </html>

@@ -1,25 +1,45 @@
 {% extends 'petpals_app/base.html' %}
-{% load staticfiles %}
 
 {% block profile_view %}
-    <form class="followform" method='POST' enctype='multipart/form-data' novalidate>
-        {% csrf_token %}
-        <input type="hidden" class="userTo" name="userTo" value={{user.id}}>
-        <input class='userFrom' type='hidden' name='userFrom' value={{request.user.id}}>
-        <button class='follow'' value={{user.id}} type='submit'>Follow</button>
-    </form>
-    <h1>{{user.username}}</h1>
-    <img src="{{ user.profile.profile_picture.url }}" width="250px" alt="">
-    <p>Name: {{ user.profile.name }}</p>
-    <p>Age: {{ user.profile.age }}</p>
-    <p>Breed: {{ user.profile.breed }}</p>
-    <p>Bio: {{ user.profile.bio }}</p>
-    <hr>
-    
-    <h1> Posts by {{user.username}} </h1>
-    {% for post in posts %}
-        <img src="{{ post.image.url }}" width="250px" alt="">
-        <!-- On hover, show caption OR remove caption entirely -->
-        <p>{{ post.caption }}</p>
-    {% endfor %}
+<div class ="profile_wrapper">
+    <div class="profile_info_container">
+        <div class ="username">
+            <h1>{{user.username}}</h1>
+        </div>
+        <div class= "not_username">
+            <div class="profile_pic_block">
+                <img src="{{ user.profile.profile_picture.url }}" width="auto" height="250px" alt="">
+            </div>
+            <div class ="profile_text_block">
+                <div>
+                    <form class="followform" method='POST' enctype='multipart/form-data' novalidate>
+                        {% csrf_token %}
+                        <input type="hidden" class="userTo" name="userTo" value={{user.id}}>
+                        <input class='userFrom' type='hidden' name='userFrom' value={{request.user.id}}>
+                        <button class='follow'' value='{{user.id}}'' type='submit'>Follow</button>
+                    </form>
+                </div>
+                <div>
+                    <p><strong>Name:</strong> {{ user.profile.name }}</p>
+                    <p><strong>Age:</strong> {{ user.profile.age }}</p>
+                    <p><strong>Breed:</strong> {{ user.profile.breed }}</p>
+                    <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+                </div>
+            </div> 
+        </div>  
+    </div>
+    <div class="profile_posts_container">
+        <div class = "profile_posts_header">
+            <h1> Posts by {{user.username}} </h1>
+        </div>
+        <div class="profile_posts">
+        {% for post in posts %}
+            <div class="profile_post_box">
+                <img src="{{ post.image.url }}" alt="">
+                <span class='post_overlay'> "{{post.caption}}" </span>
+            </div>
+        {% endfor %}
+        </div> 
+    </div>
+</div> 
 {% endblock %}

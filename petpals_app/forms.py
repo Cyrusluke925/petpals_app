@@ -3,11 +3,39 @@ from django.contrib.auth.models import User
 from petpals_app.models import UserProfileInfo, Post, Like, Comment, Follow
 
 class UserForm(forms.ModelForm):
-    password=forms.CharField(widget=forms.PasswordInput())
-    confirm_password=forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(
+        label='',
+        widget=forms.TextInput(
+            attrs={'placeholder':'Username'}
+        )
+    )
+
+    email = forms.CharField(
+        label='',
+        widget=forms.TextInput(
+            attrs={'placeholder':'Email'}
+            )
+        )
+    
+    password=forms.CharField(
+        label='',
+        widget=forms.PasswordInput(
+            attrs={'placeholder':'Password'}
+            )
+        )
+
+    confirm_password=forms.CharField(
+        label='',
+        widget=forms.PasswordInput(
+            attrs={'placeholder':'Confirm Password'}
+            )
+        )
     class Meta:
         model=User
         fields=('username','email','password')
+        help_texts = {
+            'username': None,
+        }
 
     def clean(self):
         cleaned_data = super(UserForm, self).clean()
@@ -18,11 +46,27 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError("Passwords do not match, please try again!")
 
 class UserProfileInfoForm(forms.ModelForm):
+
+    bio=forms.CharField(
+        label='',
+        widget=forms.Textarea(
+            attrs={'placeholder':'Tell us about your pets'' personality,favorite toys, food, and anything else you''d like to share!'}
+            )
+        )
+    
     class Meta():
         model = UserProfileInfo
-        fields = ('name', 'breed', 'age', 'profile_picture', 'bio')
+        fields = ('name', 'breed', 'age', 'bio','profile_picture')
 
 class PostForm(forms.ModelForm):
+    caption=forms.CharField(
+        label='',
+        widget=forms.Textarea(
+            attrs={'placeholder':'Aww! Enter a caption!'}
+            )
+        )
+    
+    
     class Meta():
         model = Post 
         fields = ('image','caption')
