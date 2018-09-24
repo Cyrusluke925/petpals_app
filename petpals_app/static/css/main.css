@@ -216,3 +216,21 @@ header {
     flex-direction: column;
     align-items: center;
 }
+
+
+#profile_picture-clear_id {
+    display: none;
+
+}
+
+
+label {
+    display: none;
+}
+
+
+.likeform {
+    display: flex;
+}
+
+
