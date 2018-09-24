@@ -1,11 +1,8 @@
 {% extends "petpals_app/base.html" %}
+
 {% block like_list %}
-
-
 <div class="viewLikesContainer">
-
-
-<div class="viewLikes">
+    <div class="viewLikes">
     {% for like in like_list %}
     <div class="likeBox">
         <div>
@@ -16,12 +13,6 @@
         </div>
     </div>
     {% endfor %}
+    </div>
 </div>
-</div>
-
-   
-
-
-
-
 {% endblock %}

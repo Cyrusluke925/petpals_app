@@ -213,7 +213,9 @@ header {
     align-items: center;
 }
 
-/* Explore Page */
+/* ------------------------------------------------------ */
+/* ----------- EXPLORE.HTML/EXPLORE PAGE ---------------- */
+/* ------------------------------------------------------ */
 .exploreContainer {
     display:flex;
     flex-direction: column;
@@ -247,13 +249,15 @@ header {
     text-align: center;
     font-size:1.2em;
 }
-
 .step-links {
     display: flex;
     justify-content:center;
 }
+/* -------------- END EXPLORE.HTML ------------------ */
 
-/* Profile View Page */
+/* ------------------------------------------------------ */
+/* ------ PROFILE_VIEW.HTML/YOUR PROFILE PAGE ----------- */
+/* ------------------------------------------------------ */
 .profile_wrapper {
     display:flex;
     flex-direction: column;
@@ -269,7 +273,6 @@ header {
     justify-content: center;
     margin-bottom:1em;
 }
-
 .not_username {
     display:flex;
 }
@@ -285,7 +288,6 @@ header {
     width:250px;
     object-fit:cover;
 }
-
 .profile_text_block {
     display:flex;
     flex-direction:column;
@@ -305,7 +307,8 @@ header {
 .profile_text_block a:hover {
     color:black;
 }
-/* posts on profile page */
+
+/* POSTS ON PROFILE PAGE */
 .profile_posts_container {
     display:flex;
     flex-direction: column;
@@ -325,7 +328,6 @@ header {
     flex-wrap:wrap;
     margin: .5em 0 2.5em 0;    
 } 
-
 .profile_post_box {
     width:300px;
     align-items: center;
@@ -348,8 +350,11 @@ header {
     text-align: center;
     font-size:1.2em;
 }
- /* view other user profile view */
+/* ------------ END PROFILE_VIEW.HTML ------------------- */
 
+ /* ----------------------------------------------------- */
+/* ---- OTHER_PROFILE.HTML/OTHER USER PROFILE PAGE ------ */
+/* ------------------------------------------------------ */
 .follow {
     border: 1px black solid;
     background-color:#FAFAFA;
@@ -361,8 +366,11 @@ header {
 .follow a:hover {
     color:black;
 }
+/* ------------ END OTHER_PROFILE.HTML ------------------ */
 
-/* View likes page */
+/* ------------------------------------------------------ */
+/* ------------ VIEW_LIKES.HTML/LIKES PAGE -------------- */
+/* ------------------------------------------------------ */
 .viewLikes {
     display:flex;
     flex-direction: column;
@@ -390,7 +398,6 @@ header {
 .likeBox img {
     width:150px;
 }
-
 .aboutContainer {
     display:flex;
     flex-direction: column;
@@ -427,7 +434,9 @@ header {
     font-size:1.2em;
 }
 
-/* media queries */
+/* ------------------------------------------------------ */
+/* ------------ NAT'S MEDIA QUERIES --------------------- */
+/* ------------------------------------------------------ */
 @media (max-width:900px) and (min-width:600px) {
     .profile_text_block {
         font-size:1.2em;
@@ -455,7 +464,6 @@ header {
         width:70vw;    
         font-size: 1.3em;  
         margin-bottom:1em;
-    
     }
     .aboutHeader h1 {
         font-size: 3.5em;
@@ -471,7 +479,7 @@ header {
     }
 }
 
-
+/* PHONE VIEW */
 @media screen and (max-width: 600px) {
     .profile_text_block p {
     font-size:1em;
@@ -495,40 +503,37 @@ header {
         flex-direction:column;
     }
     .profile_text_block {
-        align-items: center;
-}
-.not_username {
-    width:95vw;
-}
-.likeBox span {
-    font-size: 1.2em;
-    width:32vw;
-}
-.likeBox img {
-    margin-left:1.5em;
-    width:125px;
-}
-.likeBox {
-    justify-content: space-around;
-    padding:.25em;
-    width:70vw;
-}
-.site-title-about {
-    font-size: .8em;   
-}
-.aboutTag h3 {
-    font-size: 1.5em;
-    width:90vw;
-    text-align: center;
-}
-
-.aboutBlurb { 
-    font-size: 1.2em;
-    width:80vw;
-}
-
-.aboutHeader h1 {
-    font-size: 3em;
-}
-
+        align-items: center;    
+    }
+    .not_username {
+        width:95vw;
+    }
+    .likeBox span {
+        font-size: 1.2em;
+        width:32vw;
+    }
+    .likeBox img {
+        margin-left:1.5em;
+        width:125px;
+    }
+    .likeBox {
+        justify-content: space-around;
+        padding:.25em;
+        width:70vw;
+    }
+    .site-title-about {
+        font-size: .8em;   
+    }
+    .aboutTag h3 {
+        font-size: 1.5em;
+        width:90vw;
+        text-align: center;
+    }
+    .aboutBlurb { 
+        font-size: 1.2em;
+        width:80vw;
+    }
+    .aboutHeader h1 {
+        font-size: 3em;
+    }
 }
