@@ -366,24 +366,65 @@ header {
 .viewLikes {
     display:flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     margin: 3em 0;
+    width:70vw;
+}
+.viewLikesContainer {
+    display:flex;
+    justify-content: center;
 }
 .likeBox {
     display:flex;
     margin: 1em 0;
     align-items:center;
-    justify-content: center;
-    padding:1em;
+    justify-content: space-between;
+    padding:1em 0;
+    width:55vw;
 }
 .likeBox span {
     font-size: 1.5em;
+    width:35vw;
+    display:flex;
+    justify-content: flex-end;
 }
 .likeBox img {
     width:150px;
-    margin-left:3em;
+}
+
+.aboutContainer {
     display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+}
+.aboutBlurb {
+    width:50vw;    
+    font-size: 1.5em;  
+    margin-bottom:2em;
+    line-height:1.3em;
+
+}
+.aboutHeader h1 {
+    font-family: 'pacifico';
+    color: #337ab7;
+    font-size: 3.5em;
+    margin:0 0 .4em 0;;
+}
+.aboutTag h3 {
+    margin:0 0 1em 0;
+    font-size:2em;
+}
+.site-title-about {
+    display:flex;
+    justify-content: flex-start;
+    font-family: 'pacifico';
+    color: #337ab7;
+    font-size: 1em;  
+    margin-left:2em; 
+}
+.backToHome {
+    font-size:1.2em;
 }
 
 /* media queries */
@@ -409,6 +450,24 @@ header {
     }
     .not_username {
         width:80vw;
+    }
+    .aboutBlurb {
+        width:70vw;    
+        font-size: 1.3em;  
+        margin-bottom:1em;
+    
+    }
+    .aboutHeader h1 {
+        font-size: 3.5em;
+    }
+    .aboutTag h3 {
+        font-size:1.6em;
+    }
+    .likeBox {
+        width:70vw;
+    }
+    .likeBox span {
+        font-size: 1.4em;
     }
 }
 
@@ -452,5 +511,24 @@ header {
 .likeBox {
     justify-content: space-around;
     padding:.25em;
+    width:70vw;
 }
+.site-title-about {
+    font-size: .8em;   
+}
+.aboutTag h3 {
+    font-size: 1.5em;
+    width:90vw;
+    text-align: center;
+}
+
+.aboutBlurb { 
+    font-size: 1.2em;
+    width:80vw;
+}
+
+.aboutHeader h1 {
+    font-size: 3em;
+}
+
 }

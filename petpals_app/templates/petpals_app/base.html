@@ -4,43 +4,33 @@
 <html>
     <head>
         <title>Pet Pals!</title>
-
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-        
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
-
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous" defer></script>
-
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous" defer></script>
-
         <script src="{% static 'scripts/main.js' %}" defer></script>
     </head>
-
     <body>
         <header>
-                <ul class="nav nav-pills header">
-                        
+                <ul class="nav nav-pills header">  
                         <li role="presentation" class="dropdown">
-                          <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{user.profile.profile_picture.url}}" class='user_profile_image' width="auto" height="40px">
-                          </a>
-                          <ul class="dropdown-menu">
+                        </a>
+                        <ul class="dropdown-menu">
                             <li><a href="{% url 'logout' %}">Logout</a></li>
-                            <li><a href="{% url 'about' %}">About</a></li>
-                          </ul>
+                            <!-- <li><a href="{% url 'about' %}">About</a></li> -->
+                        </ul>
                         </li>
                         <li><a class="navbar-icon" href="/profile"><i class="far fa-user"></i></a></li>
                         <li><a class="navbar-icon" href="{% url 'view_likes' %}"><i class="far fa-heart"></i></a></li>
                         <li><a href="{% url 'explore' %}" class="navbar-icon"><i class="far fa-compass"></i></a></li>
                         <li><a  class='navbar-icon' href="{% url 'post_create' %}"><i class="far fa-plus-square"></i></a></li>
-                        <li class="title"><a class="site-title" href="{% url 'feed' %}">Pet Pals!<i class="fas fa-paw"></i></a></li>
+                        <li class="title"><a class="site-title" href="{% url 'feed' %}">Pet Pals! <i class="fas fa-paw"></i></a></li>
                         
-                      </ul>
+                    </ul>
             <!-- <nav class="navbar navbar-default navbar-static-top">
                 <div class="container">
                     <ul class="ul-navbar">
