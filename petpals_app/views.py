@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, LikeForm, CommentForm
+from petpals_app.forms import UserForm, UserProfileInfoForm, PostForm, LikeForm, CommentForm, FollowForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import User, UserProfileInfo, Post, Like, Comment
+from .models import User, UserProfileInfo, Post, Like, Comment, Follow
+from django.db.models import Q
 
 #for pagination
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -19,15 +20,25 @@ from django.http import QueryDict
 from django.views.decorators.csrf import csrf_exempt
 
 
-# def profile_view(request):
-#     user = request.user
-#     print(f'the user is {request.user}')
-   
-#     return render(request, 'petpals_app/profile_view.html', {'user': user})
-
+def other_profile(request, pk):
+    user = User.objects.get(id=pk)
+    posts = Post.objects.filter(user=pk)
+    return render(request, 'petpals_app/other_profile.html', {'user': user, 'posts': posts})
 
 def index(request):
     return render(request, 'petpals_app/index.html')
+
+
+def about(request):
+    return render(request, 'petpals_app/about.html')
+
+def user_feed(request):
+    print(request.user.id)
+    posts = list(Post.objects.filter(
+            Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
+        ).values('post','user')
+        )
+    return JsonResponse({'posts': posts})
 
 def sendJsonUsers(request):
     users = list(User.objects.all().values('username', 'email'))
@@ -42,6 +53,9 @@ def sendJsonLikes(request):
     likes = list(Like.objects.all().values('post', 'user'))
     return JsonResponse({'likes': likes})
     
+def sendJsonFollows(request):
+    follows = list(Follow.objects.all().values('user_to', 'user_from'))
+    return JsonResponse({'follows': follows})
 
 @login_required
 def special(request):
@@ -95,27 +109,29 @@ def profile_create(request):
     if request.method == "POST":
         print('method is a post ')
         
-        profile_form = UserProfileInfoForm(request.POST, request.FILES)
-
-        if profile_form.is_valid():
-            profile = profile_form.save(commit=False)
+        form = UserProfileInfoForm(request.POST, request.FILES)
+        from django.conf import settings
+        print('settings media root {}'.format(settings.PICTURE_ROOT))
+        if form.is_valid():
+            profile = form.save(commit=False)
             profile.user = request.user
             profile.save()
             
             #make a redirect to 
             
+            print(request.POST)
+            print(request.FILES)
+
             return render(request, 'petpals_app/profile_view.html')
         else: 
-            print(profile_form.errors)
-    else:
-        form = UserProfileInfoForm()
+            print(form.errors)
+            return render(request, 'petpals_app/profile_create.html', {'form': form})
+
     print('about to render')
+    form = UserProfileInfoForm()
+
     return render(request, 'petpals_app/profile_create.html', {'form': form})
 
-def profile_view(request):
-    user = request.user
-    posts = Post.objects.filter(user = request.user)
-    return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
 
 
 
@@ -134,75 +150,148 @@ def feed(request):
             return redirect('feed')
         else: 
             print('form invalid')
+    # elif request.method == 'DELETE':
+    #     print(comment)
+    #     Comment.objects.filter(id=id).delete()
+    #     print(comment)
+    #     instance = comment
+    #     print(instance)
+    #     instance.delete()
+    #     print ('pk'+comment)
+    #     return HttpResponse('')
     else: 
-        posts = Post.objects.order_by('-created_at')
+        # print('logged in:', request.user)
+        posts = Post.objects.filter(
+            Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
+        ).distinct().order_by('-created_at')
         form = CommentForm()
-        return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
+        
+        for post in posts:
+            likes = Like.objects.filter(post=post)
+            print(list(likes))
+            print('END')
+            
+            likes = likes.all().count()
+            print(likes)
+            post.likes = likes
 
+
+        return render(request,'petpals_app/feed.html',{'posts':posts, 'form':form})
 
 @csrf_exempt
 def post_like(request, pk):
 
     if Like.objects.filter(post=pk, user=request.user.id).exists():
         print('THIS EXISTS')
+        likes = []
+        return JsonResponse({'likes':likes})
+
     else:
         if request.method == "POST":
             print("USER: ")
             print(request.user.id)
 
             like = Like(post_id=pk, user=request.user)
-            like.save()
+            like.save()  
+            likes = list(Like.objects.filter(post=pk).values('post', 'user'))
+
         # hell yeah!
-            return JsonResponse({'message': f'{request.user.username} liked the post with id of {pk}'})
-            
+            return JsonResponse({'likes': likes})
+
+@csrf_exempt
+def follow(request, pk):
+    user_to = User.objects.get(id=pk)
+    if Follow.objects.filter(user_to=pk, user_from=request.user.id).exists():
+        print('THIS EXISTS')
+        print('here')
+    else:
+        if request.method == "POST":
+            print("USER: ")
+            print(request.user.id)
+            print ('USER TO:')
+            print (user_to.id)
+            follow = Follow(user_to=user_to, user_from=request.user)
+            follow.save()  
+            return JsonResponse({'message': f'{request.user.username} followed the user with id of {pk}'})
+
 
 @login_required
 def post_create(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            caption = form.cleaned_data.get('caption')
-            created_at = timezone.datetime.now()
-            if 'image' in request.FILES:
-                image = form.cleaned_data.get('image')
-                image=request.FILES['image']
-            post = Post(caption=caption, image=image, created_at=created_at,user=request.user)
-            print(post)
-            post.save()
-            return redirect('feed')
-        else: 
-            print('form invalid')
-            # return render(request,'petpals_app/post.html'),{'Error': 'There was an error with your post. Please re-upload image.'}
+        form = PostForm(request.POST, request.FILES)
+        print(request.FILES)
+        print(form.errors)
+        print('first')
+
+        # TODO: This code replaces django's form validation because it
+        # was missing our image - replace this code with proper validation
+        try:
+            caption = request.POST['caption']
+            image = request.FILES['image']
+        except KeyError as e:
+            return HttpResponse('Form invalid, missing key {}'.format(e))
+
+
+        created_at = timezone.datetime.now()
+        image = request.FILES['image']
+            
+        post = Post(caption=caption, image=image, created_at=created_at, user=request.user)
+        print(post)
+        post.save()
+        return redirect('feed')
     else: 
         form = PostForm()
         return render(request,'petpals_app/post.html', {'form':form})
 
+def profile_view(request):
+    user = request.user
+    posts = Post.objects.filter(user = request.user)
+    return render(request, 'petpals_app/profile_view.html', {'user': user ,'posts': posts})
+
 @login_required
 def explore(request):
-    photo = Post.objects.all()
+    photos = Post.objects.exclude(
+            Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
+            ).order_by('?')
+    # photos = Post.objects.exclude(user=request.user.id).order_by('?')
     # Increase number of posts when database is full
-    print(photo)
-    paginator = Paginator(photo, 5)
+    print(photos)
+    paginator = Paginator(photos, 9)
     page = request.GET.get('page')
     photos = paginator.get_page(page)
     
     return render(request,'petpals_app/explore.html', {'photos':photos})
 
-@login_required 
+@login_required
 def profile_edit(request):
     user = User.objects.get(id=request.user.id)
-    print(user)
-    user , created = UserProfileInfo.objects.get_or_create(user=user)
+    print(user.profile.name)
+    # Created not referenced elsewhere because function requires a tuple
+    user, created  = UserProfileInfo.objects.get_or_create(user=user)
     user.save()
     if request.method == "POST":
         form = UserProfileInfoForm(request.POST, instance=user)
+        print('in PUT')
         if form.is_valid():
+            print('form is valid')
             user = form.save()
             if 'profile_picture' in request.FILES:
+                print('pic in req')
                 user.profile_picture = request.FILES['profile_picture']
             user.save()
             return redirect('profile_view')
     else:
+        print('method was {}'.format(request.method))
         form = UserProfileInfoForm(instance=user)
     return render(request, 'petpals_app/profile_edit.html', {'form': form, 'user': user})
     
+
+def view_likes(request):
+    the_likes = list(Like.objects.all())
+    like_list = []
+    for like in the_likes:
+        if like.post.user == request.user:
+            like_list.append(like)
+            print(like_list)
+    return render(request, 'petpals_app/view_likes.html', {'like_list': like_list})
+

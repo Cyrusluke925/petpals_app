@@ -1,53 +1,55 @@
-
-
-{% extends "petpals_app/base.html" %}
+{% extends 'petpals_app/base.html' %}
 
 {% block content %}
-<li><a class="navbar-brand" href="{% url 'post_create' %}">Add New Post</a></li>
-  <ul>
-      {% for post in posts %}
-        <hr>
-      <section class="post">
-        <li class='singlePost'>
-           <img src="{{post.image.url}}" width="600px">
-           <article class='captionAndLike'>
-           {{post.caption}}
+<div class='thePosts'>
+    {% for post in posts %}
+    <hr>
+    <ul class='singlePost'>
+        <article class='post'>
+            <li class="singlePost">
+                <section class='userInformation'>
+                <img class="user_profile_picture" src="{{post.user.profile.profile_picture.url }}" width="auto" height="40px">
+                <h4><a href={% url 'other_profile' pk=post.user.id %} >{{post.user.username}}</a></h4>
+                </section>
+                <img src="{{post.image.url}}" class='postImage'>
+                <article class = 'captionAndLike'>
 
-            <form class="likeform" method='POST' enctype='multipart/form-data' novalidate>
-              {% csrf_token %}
-              <input type="hidden" class='new_post' name="post" value={{post.id}}>
-              <input class='user' type='hidden' name='user' value={{request.user}}>
-              <button class='postLike' value={{post.id}} type='submit' style='border: none'><i class="far fa-heart"></i></button>
-             </form>
-             </article>
+                    <form class="likeform" method="POST" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <input type='hidden' class='new_post' name="post" value={{post.id}}>
+                    <input class='user' type='hidden' name='user' value={{request.user.id}}>
+                    <p>Likes: {{post.likes}} </p>
+                    <input type='hidden' class='like_counter' value={{post.likes}}>
+                    <button class='postLike' value={{post.id}} type='submit' style='border: none'><i class="far fa-heart"></i></button>
+                    </form>
+                    {{post.caption}}
 
-            <hr>
-        </li>
+                    <article class="commentsAndLikes">
+                        <form id='commentForm' method='POST' enctype="multipart/form-data" type="submit">
+                            {% csrf_token %}
+                            <input type='text' id="commentBox" name='content' placeholder="Add Comment">
+                            <input type='hidden' name='post_id' required id='id_post_id' value={{post.id}} />
+                            </form>
+                            <div class="commentsContainer">
+                            {% for comment in post.comments.all %}
+                        
+                                <ul class='commentList'>
+                                    <li class='comment'>
+                                        <article class='theComment'>
+                                            <p class='commentUser' data-id='{{comment.user}}'><a href={% url 'other_profile' pk=comment.user.id %}>{{ comment.user }}</a></p><p class='commentContent' data-id='{{comment.post.id}}' > {{ comment.content }}</p>
+                                        </article>
+                                    </li>
+                                </ul>
+                                {% endfor %}    
+                            </div>
+                    </article>
 
+                </article>
+            </li>
+        </article>
         
-
-        </section>
-
-      <section class='commentsAndLikes'>
-        <form  type='submit' id='commentForm' method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <input type="text" name="content" placeholder="Add Comment">
-          <input type="hidden" name="post_id" required id="id_post_id" value={{post.id}} />
-          <!-- <button type="submit">Post</button> -->
-        </form>
-        {% for comment in post.comments.all %}
-        <ul class='commentList'>
-          <li class='comment'>
-            <article class='theComment'>
-              <p class="commentUser">{{ comment.user }}</p><p class='commentContent'>{{ comment.content }}</p> 
-              </article>
-          </li>
-        </ul>
-        {% endfor %}
-        <hr>
-      {% endfor %}
-      </section>
-  </ul>
-
-
+        
+    </ul>
+    {% endfor %}
+</div>
 {% endblock %}

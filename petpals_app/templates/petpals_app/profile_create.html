@@ -1,16 +1,22 @@
-{% extends "petpals_app/base.html" %}
 {% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 {% block content %}
-<h1> Welcome, {{ user.username }}!</h1>
-<form enctype="multipart/form-data" method="POST">
-    {% csrf_token %}
-    <input type='file' name='profile_picture'>
-    <input type="text" name='name' placeholder ='Name'>
-    <input type="text" name='breed' placeholder ='Breed'>
-    <input type="number" name="age" placeholder ='Age'>
-    <textarea rows="4" columns="50" name='bio' placeholder ='Bio'></textarea>
-    <input type="submit" name="" value="Submit">
-  </form>
+
+<div class = "createProfCont">
+  <div class = "catProfPic"></div>
+    <div class = "createProfForm">
+      <h1 class = "profWelc"> Welcome to Pet Pals, {{ user.username }}!</h1>
+      <h4> We'd love to hear more about your pet!</h4>
+      <h4> Please complete the following form:</h4>
+      <form enctype="multipart/form-data" method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type='submit'>Submit</button>
+        </form>
+    </div>
+</div>
+
   <!-- For CSS: Add textarea{resize:none} -->
 <!-- Note - do not continue to feed, profile won't get created -->
 

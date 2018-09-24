@@ -1,15 +1,9 @@
 {% extends 'petpals_app/base.html' %}
-{% load staticfiles %}
 
 {% block content %}
     <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
-        <input type='file' name='profile_picture'><br />
-        <input type="text" name='name' placeholder ='Name'><br />
-        <input type="text" name='breed' placeholder ='Breed'><br />
-        <input type="number" name="age" placeholder ='Age'><br />
-        <textarea rows="4" columns="50" name='bio' placeholder ='Bio'></textarea><br />
+        {{ form.as_p }}
         <input type="submit" name="" value="Submit">
     </form>
-
 {% endblock %}

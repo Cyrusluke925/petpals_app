@@ -3,69 +3,56 @@ body {
 }
 
 header {
+    
     background-color: #FFFFFF;
     width: 100%;
     margin: 0;
-    position: sticky;
+
 }
+
+.navBar {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.petpalslogo {
+    align-self: center;
+    height: 100%;
+}
+
+    /* position: sticky; */
+
 
 main {
-    background-color: #FAFAFA
+    background-color: #FAFAFA;
 }
-
-.ul-navbar {
-    display: flex;
-    justify-content: space-around;
-    height: 2.7em;
-    padding-left: 0;
-}
-
-.navbar-icon {
-    color: black;
-    font-size: 1.2em;
-    padding: 0 1em;
-}
-
-li {
-    list-style-type: none;
-
-}
-
-.icons{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 6em;
-    margin-right: 3em;
-    align-items: center;
-
-}
-
 
 .site-title {
     font-family: 'pacifico';
-    color: black;
-    font-size: 1.4em;
-    
-    
+    color: #337ab7;
+    font-size: 2em;
 }
 
 .title {
     width: 100%;
     margin-left: 2em;
-    
+    margin-top: 1em;
 }
 
-
-
-
-
 /* ------------------- POSTS IN FEED -------------------- */
+
+.postImage {
+    width: 598px;
+}
+
 
 ul {
     padding-left: 0;
 }
-
+li{
+    list-style-type: none;
+}
 
 .post {
     display: flex;
@@ -81,7 +68,7 @@ ul {
     display: flex;
     align-items: center;
     flex-direction: column;
-    
+    background-color:#FFFFFF; 
 }
 
 .commentForm {
@@ -106,14 +93,13 @@ ul {
     line-height: 18px;
     color: #262626;
     font-weight: bold;
-
 }
 
 .captionAndLike {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     justify-content: flex-end;
-    width: 301px;
+    width: 600px;
 }
 
 .commentContent {
@@ -122,9 +108,732 @@ ul {
     font-weight: lighter;
     font-size: 12px;
     color: #000000;
-
 }
+
+
 
 .theComment {
     width: 301px;
+}
+
+.userInformation {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.user_profile_image {
+    width:40px;
+    border-radius: 50%;
+    object-fit:cover;
+}
+
+.user_profile_picture {
+    width:40px;
+    border-radius: 50%;
+    object-fit:cover;
+}
+
+h4 {
+    padding-left: 1.5em;
+}
+
+.container {
+    background-color: #FAFAFA
+}
+
+.singlePost {
+    max-width: 600px;
+    margin-right: 0;
+}
+
+
+/* --------------------------------NAVBAR TESTING -------------------------------- */
+
+ul.nav.nav-pills{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.navbar-icon {
+    color: #a5adb0;
+    font-size: 1.8em;
+}
+
+.dropdown-toggle {
+    color: #337ab7;
+    font-size: 1.8em;
+}
+
+
+header {
+    height: 5.4em;
+    background-color: #FFFFFF;
+}
+
+.navbar-icon:hover {
+    color: #337ab7;
+    
+}
+
+.navbar-icon:hover, .site-title:hover, .dropdown-toggle:hover{
+    background-color: white !important;
+}
+
+
+.dropedown-menu {
+    width: 10px;
+}
+
+.nav {
+    padding-right: 2em;
+}
+
+.thePosts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ------------------------------------------------------ */
+/* ----------- EXPLORE.HTML/EXPLORE PAGE ---------------- */
+/* ------------------------------------------------------ */
+.exploreContainer {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.explore {
+    display:flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    margin: 2.5em 0;    
+}
+.exploreBox {
+    width:300px;
+    align-items: center;
+    justify-content: center;
+    margin: .4em;
+    position:relative;
+}
+.exploreBox img {
+    width:100%; 
+    height: 100%; 
+    object-fit: cover;
+}
+.overlay {
+    display:none;
+    width:300px;
+    position:absolute;
+    top: 42%; left: 0; bottom: 0; right: 0;
+    margin: auto;
+    font-weight: bold;
+    text-align: center;
+    font-size:1.2em;
+}
+.step-links {
+    display: flex;
+    justify-content:center;
+}
+
+
+/* ------------------------------------------------------ */
+/* -------------- INDEX.HTML/HOME PAGE ------------------ */
+/* ------------------------------------------------------ */
+
+.homePetPal, .smfp{font-family: 'pacifico';}
+.smfp{color:#337ab7;}
+.loginForm{display: flex;}
+.loginWelcome, .loginLinks{font-family: Helvetica, sans-serif;}
+.loginWelcome{font-size: 2em;}
+.loginLinks{font-size:1.5em;}
+.ulSignUp{list-style-type: none;}
+
+.adorableAnimals{
+    width:70%;
+    position: relative;
+    background: url("/static/adorable-animals.jpg");
+    height:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: none;
+}
+
+.homePetPal{
+    font-size: 5em;
+    color:#337ab7;
+}
+
+.loginContainer{
+    display: grid;
+    box-sizing: border-box;
+}
+.homeHeader{
+    height: 100%;
+    width: 30%;
+    text-align: center;
+    background:#FAFAFA;
+    opacity: .85;
+    padding-top: 2.5em;
+}
+
+.homeLogin{
+    color: white;
+    background-color: #337ab7;
+    border: none;
+    border-radius: 2px;
+    padding: 1em;
+}
+
+/* home page media query */
+@media (max-width:950px) and (min-width:768px) {
+    .homePetPal{font-size: 3em;}
+    .smfp{font-size: .75em;}
+    .loginSignUp{font-size: .5em;}
+}
+
+@media screen and (max-width: 768px) {
+    .adorableAnimals, .homeHeader{width: 100%;}
+    .adorableAnimals{height: 50%;}
+    .homePetPal{font-size: 2em;}
+    .smfp{font-size: .75em;}
+    .loginSignUp{font-size: .5em;} 
+    .loginWelcome{font-size: 1.5em;}
+    .loginLinks{font-size:1em;}
+
+    .loginForm{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .homeHeader{
+        height: 50%;
+        padding-top: .1em;
+    }
+}
+/* -------------- END INDEX.HTML ------------------ */
+
+
+/* ------------------------------------------------------ */
+/* ------------- REGISTRATION.HTML----------------------- */
+/* ------------------------------------------------------ */
+.regFormContainer{display:flex;}
+.regTable{font-size:2em;}
+.regDjgoForm{font-family: 'Helvetica';}
+.createRegAcc{width:50%;}
+
+
+.regAcc, .regFormBody{
+    margin-right:.25em;
+    text-align: center;
+}
+
+#id_username, #id_email, #id_password, #id_confirm_password, .regFormBtn{
+    margin-top:1em;
+    font-size: 1.75em;
+} 
+
+
+.regFormArea{
+   background-color:#FAFAFA;
+   padding: 1em;
+   width:40%;
+   padding-top: 8em;
+}
+
+h1.regAcc, h1.profWelc{
+    font-family: "pacifico";
+    color: #337ab7;
+}
+
+.catdog{
+    width:60%;
+    position: relative;
+    background: url("/static/catdog.jpg");
+    height:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: none;
+}
+
+
+input.regFormBtn{
+    color:white;
+    background-color: #337ab7;
+    border: none;
+    border-radius: 2px;
+    padding: 1em;
+    font-size: 1.5em;
+}
+
+
+@media screen and (max-width: 768px) {
+    .catdog, .regFormArea{width: 100%;}
+    .catdog{height: 50%;}
+    .regTable,input.regFormBtn{font-size:1em;}
+
+    #id_username, #id_email, #id_password, #id_confirm_password, .regFormBtn{
+        margin-top:.1em;
+        font-size: 1.75em;
+    } 
+
+    .regFormContainer{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .regFormArea{
+        height: 50%;
+        padding-top: .1em;
+    }
+}
+/* -------------- END REGISTRATION.HTML ------------------ */
+
+
+
+/* ------------------------------------------------------ */
+/* --------------- PROFILECREATE.HTML-------------------- */
+/* ------------------------------------------------------ */
+.profWelc{margin-top:2em;}
+
+textarea {
+    resize: none;
+    column-count: 20;
+}
+
+.createProfCont{
+    display:flex;
+    flex-direction:row;
+    text-align:center;
+    font-family: Helvetica;
+}
+.createProfForm{
+    width:35%;
+    background:#FAFAFA;
+    padding:1em;
+}
+
+
+.catProfPic{
+    width:65%;
+    position: relative;
+    background: url("/static/cat.jpg");
+    height:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: none;
+}
+
+input#id_bio{
+    border: 1px solid #337ab7; 
+    width:29em;
+    height:20em;
+}
+input#id_breed, input#id_name, input#id_age{
+    font-size:1em;
+}
+@media (max-width:885px) and (min-width:768px) {
+    .profWelc{font-size:1.5em;}
+}
+
+@media screen and (max-width: 768px) {
+    .catProfPic, .createProfForm{width: 100%;}
+    .catProfPic{height: 35%;}
+
+    .createProfCont{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .createProfForm{
+        height: 65%;
+        padding-top: .1em;
+    }
+
+    .profWelc{
+        margin-top:.1em;
+        font-size: 1.55em;
+    }
+}
+/* -------------- END PROFILECREATE.HTML ----------------- */
+
+.postHdrNew{
+
+    margin-bottom:1em;
+    font-family: pacifico; 
+    font-size: 4em;
+
+    }
+.postNewForm{height:100%;}
+.postFormText{z-index: 1;}
+.postFormGroup{display:flex;}
+
+.postContainer{
+   display: flex;
+   vertical-align: middle;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   margin-bottom:10em;
+}
+
+.postContainer{
+    display:flex;
+    flex-direction: column;
+}
+
+.postPic{
+   
+    background: url("/static/adorable-animals.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: none;
+    height:100%; 
+}
+
+/* -------------- END EXPLORE.HTML ------------------ */
+
+/* ------------------------------------------------------ */
+/* ------ PROFILE_VIEW.HTML/YOUR PROFILE PAGE ----------- */
+/* ------------------------------------------------------ */
+.profile_wrapper {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.profile_info_container {
+    display:flex;
+    flex-direction:column;
+}
+.username {
+    display:flex;
+    justify-content: center;
+    margin-bottom:1em;
+}
+.not_username {
+    display:flex;
+}
+.profile_name_block{
+    display:flex;
+    /* flex-direction:column; */
+    justify-content: center;
+    align-items: center;
+    margin: 0 2em;
+}
+.profile_pic_block img{
+    border-radius:50%;
+    width:250px;
+    object-fit:cover;
+}
+.profile_text_block {
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 2.6em;
+    font-size:1.2em;
+    line-height:1.2em;
+}
+.profile_text_block a {
+    border: 1px black solid;
+    padding:.3em .6em;
+    text-decoration: none !important;
+    color:black;
+    margin:1em 0;
+}
+.profile_text_block a:hover {
+    color:black;
+}
+
+/* POSTS ON PROFILE PAGE */
+.profile_posts_container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.profile_posts_header {
+    margin-top:5em;
+    display:flex;
+    justify-content: center;
+}
+.profile_posts_header h1 {
+    font-size:1.5em;
+}
+.profile_posts {
+    display:flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    margin: .5em 0 2.5em 0;    
+} 
+.profile_post_box {
+    width:300px;
+    align-items: center;
+    justify-content: center;
+    margin: .4em; 
+    position:relative;
+}
+.profile_post_box img {
+    width:100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+.post_overlay {
+    display:none;
+    width:300px;
+    position:absolute;
+    top: 42%; left: 0; bottom: 0; right: 0;
+    margin: auto;
+    font-weight: bold;
+    text-align: center;
+    font-size:1.2em;
+}
+/* ------------ END PROFILE_VIEW.HTML ------------------- */
+
+ /* ----------------------------------------------------- */
+/* ---- OTHER_PROFILE.HTML/OTHER USER PROFILE PAGE ------ */
+/* ------------------------------------------------------ */
+.follow {
+    border: 1px black solid;
+    background-color:#FAFAFA;
+    padding:.3em .6em;
+    text-decoration: none !important;
+    color:black;
+    margin:1em 0;
+}
+.follow a:hover {
+    color:black;
+}
+/* ------------ END OTHER_PROFILE.HTML ------------------ */
+
+/* ------------------------------------------------------ */
+/* ------------ VIEW_LIKES.HTML/LIKES PAGE -------------- */
+/* ------------------------------------------------------ */
+.viewLikes {
+    display:flex;
+    flex-direction: column;
+    margin: 3em 0;
+    width:70vw;
+}
+.viewLikesContainer {
+    display:flex;
+    justify-content: center;
+}
+.likeBox {
+    display:flex;
+    margin: 1em 0;
+    align-items:center;
+    justify-content: space-between;
+    padding:1em 0;
+    width:55vw;
+}
+.likeBox span {
+    font-size: 1.5em;
+    width:30vw;
+    display:flex;
+    justify-content: flex-end;
+}
+.likeBox img {
+    width:150px;
+}
+.aboutContainer {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+}
+.aboutBlurb {
+    width:50vw;    
+    font-size: 1.5em;  
+    margin-bottom:2em;
+    line-height:1.3em;
+
+}
+.aboutHeader h1 {
+    font-family: 'pacifico';
+    color: #337ab7;
+    font-size: 3.5em;
+    margin:0 0 .4em 0;;
+}
+.aboutTag h3 {
+    margin:0 0 1em 0;
+    font-size:2em;
+}
+.site-title-about {
+    display:flex;
+    justify-content: flex-start;
+    font-family: 'pacifico';
+    color: #337ab7;
+    font-size: 1em;  
+    margin-left:2em; 
+}
+.backToHome {
+    font-size:1.2em;
+}
+
+/* ------------------------------------------------------ */
+/* ------------ NAT'S MEDIA QUERIES --------------------- */
+/* ------------------------------------------------------ */
+@media (max-width:900px) and (min-width:600px) {
+    .profile_text_block {
+        font-size:1.2em;
+    }
+    .profile_pic_block img {
+        width:250px;
+        margin: .35em 0 1em 0;
+        object-fit:cover;
+    }
+    .not_username {
+        flex-direction:column;
+    } 
+    .profile_pic_block  {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .profile_text_block {
+            align-items: center;
+    }
+    .not_username {
+        width:80vw;
+    }
+    .aboutBlurb {
+        width:70vw;    
+        font-size: 1.3em;  
+        margin-bottom:1em;
+    }
+    .aboutHeader h1 {
+        font-size: 3.5em;
+    }
+    .aboutTag h3 {
+        font-size:1.6em;
+    }
+    .likeBox {
+        width:70vw;
+    }
+    .likeBox span {
+        font-size: 1.4em;
+    }
+}
+
+/* PHONE VIEW */
+@media screen and (max-width: 600px) {
+    .profile_text_block p {
+    font-size:1em;
+    }
+    .profile_pic_block  {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .profile_pic_block img {
+        width:250px;
+        margin: .35em 0 1em 0;
+        object-fit:cover;
+    }
+    .profile_text_block a {
+        border: 1px black solid;
+        margin-bottom:1em;
+        font-size:.9em;
+    }
+    .not_username {
+        flex-direction:column;
+    }
+    .profile_text_block {
+        align-items: center;    
+    }
+    .not_username {
+        width:95vw;
+    }
+    .likeBox span {
+        font-size: 1.2em;
+        width:32vw;
+    }
+    .likeBox img {
+        margin-left:1.5em;
+        width:125px;
+    }
+    .likeBox {
+        justify-content: space-around;
+        padding:.25em;
+        width:70vw;
+    }
+    .site-title-about {
+        font-size: .8em;   
+    }
+    .aboutTag h3 {
+        font-size: 1.5em;
+        width:90vw;
+        text-align: center;
+    }
+    .aboutBlurb { 
+        font-size: 1.2em;
+        width:80vw;
+    }
+    .aboutHeader h1 {
+        font-size: 3em;
+    }
+
+    .navbar-icon {
+        font-size: 1.5em;
+    }
+
+    .title {
+        font-size: 0.8em;
+        margin-top: 1em;
+    }
+}
+
+
+
+@media screen and (max-width: 460px) {
+    .title {
+        font-size: 0.7em;
+        margin-top: 1em;
+
+    }
+
+    .navbar-icon {
+        font-size: 1.3em;
+    }
+}
+
+
+@media screen and (max-width: 410px) {
+    .title {
+       margin-top: 1em;
+       margin-right: 1em;
+       margin-left: 0;
+    }
+    .postImage {
+        width: 10em;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .postImage {
+        width: 28em;
+
+    }
+
+    .userInformation {
+        width: 28em;
+    }
+
+    .singlePost {
+        width: 28em;
+    }
+
+    .post {
+        width: 28em;
+    }
+
+    .captionAndLike {
+        width: 28em;
+    }
 }
