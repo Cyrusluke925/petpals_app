@@ -1,11 +1,14 @@
-{% extends "petpals_app/base.html" %}
 {% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 {% block content %}
 
 <div class = "createProfCont">
   <div class = "catProfPic"></div>
     <div class = "createProfForm">
-      <h1> Welcome, {{ user.username }}!</h1>
+      <h1 class = "profWelc"> Welcome to Pet Pals, {{ user.username }}!</h1>
+      <h4> We'd love to hear more about your pet!</h4>
+      <h4> Please complete the following form:</h4>
       <form enctype="multipart/form-data" method="POST">
           {% csrf_token %}
           {{ form.as_p }}

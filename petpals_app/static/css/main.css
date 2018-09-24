@@ -29,7 +29,9 @@ main {
 ul {
     padding-left: 0;
 }
-
+li{
+    list-style-type: none;
+}
 
 .post {
     display: flex;
@@ -321,7 +323,7 @@ header {
    width:40%;
 }
 
-h1.regAcc{
+h1.regAcc, h1.profWelc{
     font-family: "pacifico";
     color: #337ab7;
 }
@@ -350,12 +352,7 @@ input.regFormBtn{
     font-size: 1.5em;
 }
 
-/* register page media query */
-/* @media (max-width:950px) and (min-width:768px) {
-    .homePetPal{font-size: 3em;}
-    .smfp{font-size: .75em;}
-    .loginSignUp{font-size: .5em;}
-} */
+
 
 @media screen and (max-width: 768px) {
     .catdog, .regFormArea{width: 100%;}
@@ -381,4 +378,79 @@ input.regFormBtn{
 /* --------------- PROFILECREATE.HTML-------------------- */
 /* ------------------------------------------------------ */
 
+textarea {
+    resize: none;
+    column-count: 20;
+}
+
+.createProfCont{
+    display:flex;
+    flex-direction:row;
+    text-align:center;
+    font-family: Helvetica;
+}
+.createProfForm{
+    width:35%;
+    background:#FAFAFA;
+    padding:1em;
+}
+
+.profWelc{
+    margin-top:2em;
+}
+.catProfPic{
+    width:65%;
+    position: relative;
+    background: url("/static/cat.jpg");
+    height:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: none;
+}
+
+button{
+    color:white;
+    background-color: #337ab7;
+    padding:1em;
+    font-size:1em;
+}
+button:hover{
+    color:#337ab7;
+    background-color:white;
+    border: 1px solid #337ab7;
+    
+}
+
+input#id_bio{
+    border: 1px solid #337ab7; 
+    width:29em;
+    height:20em;
+}
+input#id_breed, input#id_name, input#id_age{
+    font-size:1em;
+}
+@media (max-width:885px) and (min-width:768px) {
+    .profWelc{font-size:1.5em;}
+}
+
+@media screen and (max-width: 768px) {
+    .catProfPic, .createProfForm{width: 100%;}
+    .catProfPic{height: 35%;}
+
+    .createProfCont{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .createProfForm{
+        height: 65%;
+        padding-top: .1em;
+    }
+    
+    .profWelc{
+        margin-top:.1em;
+        font-size: 1.55em;
+    }
+}
 /* -------------- END PROFILECREATE.HTML ----------------- */
