@@ -1,95 +1,3 @@
-// $("a.like").click(function(){
-//     var curr_elem = $(this) ;
-//     $.get($(this).attr('href'), function(data){
-//         var my_div = $(curr_elem).parent().find("b");
-//         my_div.text(my_div.text()*1+1);     
-//     }); 
-//     return false; // prevent loading URL from href
-// });
-
-// $(document).ready(function() {
-
-//     var user = $('.user').attr('value')
-//     console.log(user)
-
-//     $.ajax({
-//         method: 'Get',
-//         url: '/api/likes',
-//         data: user,
-//         success: function handleSuccess (json) {
-//             console.log(json.likes)
-//             console.log('logged in:',user)
-//             let likesArray = json.likes
-
-//             new_array = []
-//             $.each(likesArray, function () {
-//                 if (user == this.user) {
-//                     console.log('there is a like for this user in the db')
-//                     console.log(this.post)
-//                     new_array.push(this.post)
-//                 }
-//             });
-//             console.log("array of logged in users likes:",new_array)
-
-//             $.ajax({
-//                 method: 'Get',
-//                 url: '/api/feed',
-//                 data: user,
-//                 success: function handleSuccess (json) {
-//                     let postArray = json.posts
-//                     // console.log(postArray)
-//                     new_post_array = []
-//                     $.each(postArray, function () {
-//                         new_post_array.push(this.post)
-//                     });
-//                     console.log('array of logged in users feed posts:',new_post_array)
-                    
-                   
-
-//                     var matches = new_post_array.filter(function(val) {
-//                         return new_array.indexOf(val) != -1;
-//                     });
-                
-//                     console.log(matches)
-//                 }
-//             });
-//         }
-//         });
-//     });
-
-
-
-// function overlap(arr1,arr2) {
-//     for(var i = 0; i < new_array.length; ++i)
-//     if(new_post_array.indexOf(new_array[i]) != -1)
-//         return true;
-//     return false;
-// }
-                            // $.each(postArray, function () {
-                                // if (post == )
-                        
-                    // });
-                    // if (post == )
-                // }
-                
-    //         });
-    //     }
-    // });
-
-//                     // console.log ($('.postLike').attr('value') )
-//                     // let post = this.post
-//                     // console.log(post)
-//                     // $('.postLike').attr('value', post) 
-//                     // console.log ( $('.postLike').attr('value'))
-//                     // $('.postLike').css('color', 'red')
-//                 }
-//             })
-//         },
-//         error: function handleError (e){
-//             console.log('error', e);
-//         }
-// });
-
 $.ajax({
     method: 'Get',
     url: '/api/posts',
@@ -98,22 +6,23 @@ $.ajax({
     }
 })
 
+
 $('.postLike').on('click', function(element){
     element.preventDefault();
-    $(this).css('color', 'red')
+    $(this).addClass('fullHeart')
 
     var form = $('.likeform').serialize()
     var post = $(this).attr('value')
     var user = $('.user').attr('value')
-    console.log(post)
-    console.log(user)
+
+    console.log("post liked:", post)
+    console.log("by user according to form:",user)
+    
     var theData = {
         post: post,
         user: user,
         form: form
     }
-
-    console.log(theData)
 
     likeURL = `http://localhost:8000/post/${post}/like`
 
@@ -121,15 +30,22 @@ $('.postLike').on('click', function(element){
         method: 'POST',
         url:likeURL,
         data: theData,
-        success: function onSuccess() {
-                console.log('success')
+        success: function onSuccess(json) {
+                console.log(json)
+                likesCount =json.likes.length
+                if (likesCount > 0) {
+                    $('.likeform p').text(`likes: ${likesCount}`)
+                }
         },
         error: function onError(err1, err2, err3) {
             console.log(err)
         }
     })
-
 })
+
+
+
+
 
 $('.follow').on('click', function(element){
     $(this).text('Following')
@@ -161,52 +77,9 @@ $('.follow').on('click', function(element){
     })  
 })
 
-$( "#commentForm" ).on( "submit", function( event ) {
-    event.preventDefault();
-    let form = ( $('#commentBox').serialize());
-    
-    let post = $('#id_post_id').attr('value')
-    let user = $('#commentForm').attr('value')
-    
-    let comData = {
-        user:user,
-        form:form
-    }
-    console.log('COMM DATAAA ', comData)
-
-    commentURL = `http://localhost:8000/post/${post}/comment`
-    $.ajax({
-        method: 'POST',
-        url: commentURL,
-        data: comData,
-        success: function onSuccess(jsonResp) {
-            console.log('success')
-            console.log('JSON',jsonResp)
-     
-            // $('.commentList').append(
-               
-            //     `<li>
-            //             <p class='commentUser' data-id='{{comment.user}}'>
-            //                 <a href={% url 'other_profile' pk=comment.user.id %}>
-            //                 {{ comment.user }}</a>
-            //             </p>
-                        
-            //             <p class='commentContent' data-id='{{comment.post.id}}' > 
-            //                 {{ comment.content }}
-            //             </p>
-            //     </li>`
-            // )
-            // location.reload()
-
-        },
-        error: function onError(err1, err2, err3) {
-            console.log(err1, err2,err3)
-        }
-    })  
+$('#commentBox').on('submit',(e)=>{
+    e.preventDefault()
 })
-
-
-
 
 $('.delete').on('click',(e)=>{
     e.preventDefault()
@@ -221,13 +94,6 @@ $('.delete').on('click',(e)=>{
         }
     })  
 })
-
-
-
-
-
-
-
 
 $('.exploreBox img').hover(
     function() {

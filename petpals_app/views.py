@@ -57,10 +57,6 @@ def sendJsonFollows(request):
     follows = list(Follow.objects.all().values('user_to', 'user_from'))
     return JsonResponse({'follows': follows})
 
-def sendJsonComments(request):
-    comments = list(Comment.objects.all().values('content'))
-    return JsonResponse({'comments':comments})
-    
 @login_required
 def special(request):
     return HttpResponse('You are already logged in.')
@@ -150,6 +146,7 @@ def feed(request):
             comment = Comment(content=content, created_at=created_at, user=request.user, post_id=post_id)
             print(comment)
             comment.save()
+            print('comment post key:', comment.post.pk)
             return redirect('feed')
         else: 
             print('form invalid')
@@ -186,6 +183,9 @@ def post_like(request, pk):
 
     if Like.objects.filter(post=pk, user=request.user.id).exists():
         print('THIS EXISTS')
+        likes = []
+        return JsonResponse({'likes':likes})
+
     else:
         if request.method == "POST":
             print("USER: ")
@@ -193,33 +193,10 @@ def post_like(request, pk):
 
             like = Like(post_id=pk, user=request.user)
             like.save()  
+            likes = list(Like.objects.filter(post=pk).values('post', 'user'))
+
         # hell yeah!
-            return JsonResponse({'message': f'{request.user.username} liked the post with id of {pk}'})
-
-@csrf_exempt
-def comment_create(request, pk):
-    
-    if request.method == "POST":
-        print("USER: ")
-        form = CommentForm(request.POST)
-        post = Post.objects.get(id=pk)
-        print(f'form {form}')
-        comment = Comment(post=post, user=request.user, content=request.POST)
-        
-        comment.save()  
-    
-        return JsonResponse({'message': f'{request.user.username} comment on post {pk}'})
-
-def create_contact(request):
-  if request.method == 'POST':
-    print("YOU WANT TO LEAVE A MESSAGE")
-    form = ContactForm(request.POST)
-    print(f'form: {form}')
-    if form.is_valid():
-      form.save()
-      return JsonResponse({'message': 'received'})
-    else:
-      return JsonResponse({'message': 'error'})
+            return JsonResponse({'likes': likes})
 
 @csrf_exempt
 def follow(request, pk):
@@ -317,5 +294,3 @@ def view_likes(request):
             like_list.append(like)
             print(like_list)
     return render(request, 'petpals_app/view_likes.html', {'like_list': like_list})
-
-
