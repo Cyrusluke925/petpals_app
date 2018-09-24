@@ -1,20 +1,30 @@
-
 {% load staticfiles %}
-
-  <div class="container">
-    <div class="jumbotron">
+<link rel="icon" href="{% static 'pawprint.png' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
+   
       {% if registered %}
       <h1>Thank you for registering!</h1>
       
       {% else %}
-      
-      <h1>Create an Account</h1>
-        <form enctype="multipart/form-data" method="POST">
-          {% csrf_token %}
-          {{ user_form.as_p }}
-          <input type="submit" name="" value="Sign Up!">
-        </form>
+      <div class="regFormContainer">
+        <div class="catdog"></div>
+          <div class="regFormArea">
+            <h1 class="regAcc">Create an Account</h1>
+            <form class="regFormBody" enctype="multipart/form-data" method="POST">
+              {% csrf_token %}
+            
+              <div class="regDjgoForm">
+               
+                  {{ user_form.as_p }}
+               
+            </div>
+              <input class="regFormBtn" type="submit" name="" value="Sign Up!">
+            </form>
+          </div>
+      </div>
         
       {% endif %}
-    </div>
-  </div>
+    

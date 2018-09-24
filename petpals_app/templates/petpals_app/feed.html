@@ -3,14 +3,14 @@
 {% block content %}
 
 
-<div>
+<div class='thePosts'>
     {% for post in posts %}
     <hr>
     <ul class='singlePost'>
         <article class='post'>
             <li class="singlePost">
                 <section class='userInformation'>
-                <img class="user_profile_image" src="{{post.user.profile.profile_picture.url }}" width=30px>
+                <img class="user_profile_picture" src="{{post.user.profile.profile_picture.url }}" width=30px>
                 <h4><a href={% url 'other_profile' pk=post.user.id %} >{{post.user.username}}</a></h4>
                 </section>
                 <img src="{{post.image.url}}" width="598px">
@@ -20,9 +20,10 @@
                     {% csrf_token %}
                     <input type='hidden' class='new_post' name="post" value={{post.id}}>
                     <input class='user' type='hidden' name='user' value={{request.user.id}}>
+                    <p>likes: {{post.likes}} </p>
+                    <input type='hidden' class='like_counter' value={{post.likes}}>
                     <button class='postLike' value={{post.id}} type='submit' style='border: none'><i class="far fa-heart"></i></button>
                     </form>
-                    <p>{{post.likes}}</p>
                     {{post.caption}}
 
                     <article class="commentsAndLikes">
@@ -37,13 +38,7 @@
                                 <ul class='commentList'>
                                     <li class='comment'>
                                         <article class='theComment'>
-                                            <p class='commentUser' data-id='{{comment.user}}'><a href={% url 'other_profile' pk=comment.user.id %}>{{ comment.user }}</a></p><p class='commentContent' data-id='{{comment.post.id}}'> {{ comment.content }}
-                                    {% if comment.user.id == request.user.id %}
-                                    <form class="likeform" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <button class = "delete">X</button>
-                                    </form>
-                                    {% endif %}
+                                            <p class='commentUser' data-id='{{comment.user}}'><a href={% url 'other_profile' pk=comment.user.id %}>{{ comment.user }}</a></p><p class='commentContent' data-id='{{comment.post.id}}' > {{ comment.content }}</p>
                                         </article>
                                     </li>
                                 </ul>

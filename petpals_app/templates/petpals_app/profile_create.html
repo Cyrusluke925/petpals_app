@@ -1,12 +1,19 @@
 {% extends "petpals_app/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<h1> Welcome, {{ user.username }}!</h1>
-<form enctype="multipart/form-data" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type='submit'>Submit</button>
-  </form>
+
+<div class = "createProfCont">
+  <div class = "catProfPic"></div>
+    <div class = "createProfForm">
+      <h1> Welcome, {{ user.username }}!</h1>
+      <form enctype="multipart/form-data" method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type='submit'>Submit</button>
+        </form>
+    </div>
+</div>
+
   <!-- For CSS: Add textarea{resize:none} -->
 <!-- Note - do not continue to feed, profile won't get created -->
 

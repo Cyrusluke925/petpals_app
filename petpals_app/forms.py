@@ -3,11 +3,39 @@ from django.contrib.auth.models import User
 from petpals_app.models import UserProfileInfo, Post, Like, Comment, Follow
 
 class UserForm(forms.ModelForm):
-    password=forms.CharField(widget=forms.PasswordInput())
-    confirm_password=forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(
+        label='',
+        widget=forms.TextInput(
+            attrs={'placeholder':'Username'}
+        )
+    )
+
+    email = forms.CharField(
+        label='',
+        widget=forms.TextInput(
+            attrs={'placeholder':'Email'}
+            )
+        )
+    
+    password=forms.CharField(
+        label='',
+        widget=forms.PasswordInput(
+            attrs={'placeholder':'Password'}
+            )
+        )
+
+    confirm_password=forms.CharField(
+        label='',
+        widget=forms.PasswordInput(
+            attrs={'placeholder':'Confirm Password'}
+            )
+        )
     class Meta:
         model=User
         fields=('username','email','password')
+        help_texts = {
+            'username': None,
+        }
 
     def clean(self):
         cleaned_data = super(UserForm, self).clean()
@@ -18,6 +46,28 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError("Passwords do not match, please try again!")
 
 class UserProfileInfoForm(forms.ModelForm):
+    name=forms.CharField(
+        label='',
+        widget=forms.TextInput(
+            attrs={'placeholder':'Name'}
+            )
+        )
+    
+    breed=forms.CharField(
+        label='',
+        widget=forms.TextInput(
+            attrs={'placeholder':'Breed'}
+            )
+        )
+    
+    # age=forms.CharField(
+    #     label='',
+    #     widget=forms.IntegerField(
+    #         attrs={'placeholder':'Age'}
+    #         )
+    #     )
+
+    
     class Meta():
         model = UserProfileInfo
         fields = ('name', 'breed', 'age', 'profile_picture', 'bio')

@@ -28,6 +28,18 @@ def other_profile(request, pk):
 def index(request):
     return render(request, 'petpals_app/index.html')
 
+
+def about(request):
+    return render(request, 'petpals_app/about.html')
+
+def user_feed(request):
+    print(request.user.id)
+    posts = list(Post.objects.filter(
+            Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
+        ).values('post','user')
+        )
+    return JsonResponse({'posts': posts})
+
 def sendJsonUsers(request):
     users = list(User.objects.all().values('username', 'email'))
     return JsonResponse({'users': users})
@@ -119,6 +131,8 @@ def profile_create(request):
     form = UserProfileInfoForm()
 
     return render(request, 'petpals_app/profile_create.html', {'form': form})
+
+
 
 
 @login_required
