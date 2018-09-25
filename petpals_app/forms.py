@@ -1,6 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 from petpals_app.models import UserProfileInfo, Post, Like, Comment, Follow
+
+def _get_password_validator():
+    return RegexValidator("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+, message="Password must be more than 8 characters, and include a number, letter, and special charater")
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(
@@ -14,22 +19,23 @@ class UserForm(forms.ModelForm):
         label='',
         widget=forms.TextInput(
             attrs={'placeholder':'Email'}
-            )
         )
+    )
     
     password=forms.CharField(
         label='',
         widget=forms.PasswordInput(
             attrs={'placeholder':'Password'}
-            )
-        )
+        ),
+        validators=[_get_password_validator()]
+    )
 
     confirm_password=forms.CharField(
         label='',
         widget=forms.PasswordInput(
             attrs={'placeholder':'Confirm Password'}
-            )
         )
+    )
     class Meta:
         model=User
         fields=('username','email','password')
