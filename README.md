@@ -57,12 +57,42 @@ To run an instance of Pet Pals on your local machine, clone the repository, then
                 * If the user clicks on likes, the app will redirect to the likes page where user will be able to see which other users have liked the post in the format of “This {user} liked this {post} on {date} with a thumbnail of the liked image. 
         * Likes
             * User will be able to view posts that have been liked by other furry friends 
+            
+### Development Improvment Opportunites
+* Add feature to edit/delete comments/posts
+* Prevent page reload when comment is submitted using .AJAX request
+* Give user option to 'like' or 'comment' on explore page, or user posts
+* Create option to edit username
+* Improve likes and follows to hold value when page is refreshed
+* Reformat hover effects to hold long text captions
+* When clicking on picture from another users profile, enlarge image
+* Make invalid login credentials appear on screen instead of opening in a new window for login screen
+* When a page is blank, add text to tell user what should be on that page 
+* Create a more helpful error messages for server/database errors
+* Add tooltips to navbar
 
+### Future Wish List
+* Implement @mentioning by username
+* Implement ability to tag posts 
+* Allow users to react in emojis
+* Send notifications to users informing them when another user likes or comments on their posts
+* Allow user to upload short videos of their pets
+* Create nested comment feature, allowing users to comment on comments
+* Implement private messaging functionality between pet-parents
+* Create a page for users to meet at pet-friendly locations by querying Yelp API for pet-friendly restaurants, dog-parks, or pet stores within set current location range.
+
+## Links
+
+### Wireframes
+[Dropbox link to wireframes](https://www.dropbox.com/s/24iflm7dn3n6ups/PetPals.pdf?dl=0)
 
 ### Authors
 * [Andrea Piazza](https://github.com/aza024)
 * [Luke Engle](https://github.com/Cyrusluke925)
 * [Natalie Poulson](https://github.com/natalie-poulson)
+
+### Herkou Link
+[Pet Pals on Heroku](https://petpalsproject.herokuapp.com/)
 
 ### Acknowledgments
 Special thanks to our instructors, Justin Castilla and Dalton Hart for assisting us with this project. 
