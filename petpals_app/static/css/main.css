@@ -664,6 +664,11 @@ input#id_breed, input#id_name, input#id_age{
     margin:0 0 1em 0;
     font-size:2em;
 }
+
+.aboutLAN{
+    font-size: .75em;
+}
+
 .site-title-about {
     display:flex;
     justify-content: flex-start;

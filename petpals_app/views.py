@@ -150,17 +150,7 @@ def feed(request):
             return redirect('feed')
         else: 
             print('form invalid')
-    # elif request.method == 'DELETE':
-    #     print(comment)
-    #     Comment.objects.filter(id=id).delete()
-    #     print(comment)
-    #     instance = comment
-    #     print(instance)
-    #     instance.delete()
-    #     print ('pk'+comment)
-    #     return HttpResponse('')
     else: 
-        # print('logged in:', request.user)
         posts = Post.objects.filter(
             Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
         ).distinct().order_by('-created_at')
@@ -253,7 +243,7 @@ def explore(request):
     photos = Post.objects.exclude(
             Q(user=request.user.id) | Q(user__user_to__user_from=User.objects.get(pk=request.user.id))
             ).order_by('?')
-    # photos = Post.objects.exclude(user=request.user.id).order_by('?')
+
     # Increase number of posts when database is full
     print(photos)
     paginator = Paginator(photos, 9)

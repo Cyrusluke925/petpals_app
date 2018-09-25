@@ -14,16 +14,16 @@
     <div class="pagination">
         <span class="step-links">
         {% if photos.has_previous %}
-            <a href="?page=1">&laquo; First</a>
-            <a href="?page={{ photos.previous_page_number }}">Previous</a>
+            <a href="?page=1"> &laquo;   First  | </a>
+            <a href="?page={{ photos.previous_page_number }}">   Previous | </a>
         {% endif %}
         <span ="current">
             Page {{ photos.number }} of {{ photos.paginator.num_pages }}
         </span>
 
         {% if photos.has_next %}
-            <a href="?page={{ photos.next_page_number }}">Next</a>
-            <a href="?page={{ photos.paginator.num_pages }}">Last &raquo;</a>
+            <a href="?page={{ photos.next_page_number }}">  | Next |</a>
+            <a href="?page={{ photos.paginator.num_pages }}">  Last   |&raquo; </a>
         {% endif %}
         </span>
     </div>
