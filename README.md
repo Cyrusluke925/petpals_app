@@ -1,7 +1,7 @@
 # PetPals App
 
 ## Scope:
-PetPals is a social media oriented, full-stack web application that connects pet owners by means of sharing images of their pets. Using Django, Python, Javascript, jQuery, HTML, and CSS, our goal is to create an application that allows users to sign-up, create a profile for their pet, post pictures of their pets, and interact with other users through likes and comments. Users will be able to add friends and explore random photos of pets that have opted-in to having their pictures shared on a site-wide basis. 
+PetPals is a social media oriented, full-stack web application that connects pet owners by means of sharing images of their pets. Using Django, Python, Javascript, jQuery, HTML, and CSS, our goal is to create an application that allows users to sign-up, create a profile for their pet, post pictures of their pets, and interact with other users through likes and comments. Users will be able to add friends and explore random photos of pets.
 
 ## Getting Started
 To run an instance of Pet Pals on your local machine, clone the repository, then run:
@@ -22,10 +22,10 @@ To run an instance of Pet Pals on your local machine, clone the repository, then
 **PostgreSQL** - Database Management System, used for storing app state, such as posts, comments, follows, and likes
 
 ## Users:
- Our target users are proud pet parents looking to share pictures of their pets and connect with other pet parents. 
+ Our target users are proud pet parents looking to share pictures of their pets and connect with other pet parents via a new, unique social media platform. 
 
 ## Features
-* Create accounts on petpals with forms that will ensure proper input, and backend validation of forms
+* Create accounts on PetPals with forms that will ensure proper input, and backend validation of forms
 * Edit and customize your profile
 * Upload custom pictures of your pets
 * Comment on and 'like' pet photos of other users who you follow
@@ -80,6 +80,7 @@ To run an instance of Pet Pals on your local machine, clone the repository, then
 * Create nested comment feature, allowing users to comment on comments
 * Implement private messaging functionality between pet-parents
 * Create a page for users to meet at pet-friendly locations by querying Yelp API for pet-friendly restaurants, dog-parks, or pet stores within set current location range.
+* Password recovery options 
 
 ## Links
 
