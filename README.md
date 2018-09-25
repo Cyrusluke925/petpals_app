@@ -65,7 +65,7 @@ To run an instance of Pet Pals on your local machine, clone the repository, then
 * [Natalie Poulson](https://github.com/natalie-poulson)
 
 ### Acknowledgments
-Special thanks to our instructors Justin Castilla and Dalton Hart for assisting us with this project. 
+Special thanks to our instructors, Justin Castilla and Dalton Hart for assisting us with this project. 
 
 Thanks to [Pexels.com](https://www.pexels.com) for all stock images!
 
