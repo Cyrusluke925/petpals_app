@@ -41,7 +41,7 @@ To run an instance of Pet Pals on your local machine, clone the repository, then
 * If the user selects the  ‘sign-in’ button, they will be redirected to their furry-friend feed containing images that have been posted by other accounts that the user is following
  * If a user does not have friends, their feed will appear empty, and the user can visit the ‘Explore’ page that all posts pictures from all members of the Pet Pal community
  * Users can select icons from the nav bar containing links to:  
-   * Profile: 
+  * Profile: 
     * User’s profile page that shows user information, posts, whcih may be edited and updated 
   * Explore
     * Features pictures of posts from Pet Pals community
