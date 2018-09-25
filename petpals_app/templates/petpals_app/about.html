@@ -22,15 +22,15 @@
                         </a>
                         <ul class="dropdown-menu">
                                 <li><a href="{% url 'logout' %}">Logout</a></li>
-                            <li><a href="{% url 'about' %}">About</a></li>
+                                <li><a href="{% url 'about' %}">About</a></li>
                         </ul>
                         </li>
+
                         <li><a class="navbar-icon" href="/profile"><i class="far fa-user"></i></a></li>
                         <li><a class="navbar-icon" href="{% url 'view_likes' %}"><i class="far fa-heart"></i></a></li>
                         <li><a href="{% url 'explore' %}" class="navbar-icon"><i class="far fa-compass"></i></a></li>
                         <li><a  class='navbar-icon' href="{% url 'post_create' %}"><i class="far fa-plus-square"></i></a></li>
                         <li class="title"><a class="site-title" href="{% url 'feed' %}">Pet Pals! <i class="fas fa-paw"></i></a></li>
-                        
                 </ul>
         </header>
         <main>
@@ -45,9 +45,22 @@
                                 <div class="aboutTag">
                                         <h3> . . . a social media site for pets! </h3>
                                 </div>
+
                                 <div class="aboutBlurb">
-                                        <p>Pet Pals is a social media oriented, full-stack web application that connects pet owners by means of sharing images of their pets. Using Django, Python, Javascript, jQuery, HTML, and CSS, our goal is to create an application that allows users to sign-up, create a profile for their pet, post pictures of their pets, and interact with other users through likes and comments. Users will be able to follow other pets, as well as explore randomly generated posts of pets that they are not yet following. </p>
+                                
+                                <p>Pet Pals is a social media app for pet parents. Our goal is to create an application that allows users to sign-up, create a profile for their pet, post pictures of their pets, and interact with other users through likes and comments. Users will be able to follow other pets, as well as explore randomly generated posts of pets that they are not yet following. </p>
+                                
+                                <p>We were founded by a group of students in General Assembly's Web Development Immersive who are passionate about their pets and wanted to find a place to connect with other pet parents.</p>
+                                
+                                <p>About Our Founders:</p>
+
+                                        <h6>Natalie loves animals, especially Moo - her formerly feral feline from Carlsbad, New Mexico.</h6>
+                                        
+                                        <h6>Raised in the Bay Area, Luke's interest in web development sparked when he decided to join a prepatory class in JavaScript. He enjoys long walks on the beach, music and Netflix.</h6>
+                                                
+                                        <h6>Andrea relocated to Bay Area from New England to pursue web development. She had a Norweigen Forest Cat who now lives with her dad because he feeds her hot dogs and lets her climb trees outside.</h6>
                                 </div>
+
                                 <div class="backToHome">
                                         <a href="{% url 'index' %}">Back to Homepage</a>
 

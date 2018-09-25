@@ -90,6 +90,44 @@
 //         }
 // });
 
+$("#commentBox").on('keydown', function(e) {
+    if (e.which != 13) {
+        return
+    }
+
+    let post_id = $(this).attr('data-id')
+    let csrf_token = $('input[name=csrfmiddlewaretoken]').val()
+    let content = $(this).val()
+    // alert(`you pressed ${csrf_token}`)
+
+    // "POST /feed?csrfmiddlewaretoken=d1pUdgvM08kkFSkrcDnXvUQvTTUQNeR2TV3tiq0a59v7T8Uh6P0oxjDXhYHbkSQC&content=abc&post_id=4 HTTP/1.1" 
+    // alert(`${post_id} ${csrf_token} ${content}`)
+    $.ajax({
+        type: 'POST',
+        method: 'POST',
+        url: '/feed',
+        data: {
+            csrfmiddlewaretoken: csrf_token,
+            post_id: post_id,
+            content: content
+        },
+        success: function onSuccess(response) {
+            e.preventDefault();
+            console.log(`#${post_id}_cl`)
+            // console.log()
+
+            var commentList = document.getElementById(`${post_id}_cl`)
+            // console.log($(`#${post_id}_cl`))
+            // var je = JSON.stringify(response)
+            // $(document).load(response);
+
+            // alert(`${response}`)
+            // console.log(e)
+        }
+    })
+
+});
+
 $.ajax({
     method: 'Get',
     url: '/api/posts',

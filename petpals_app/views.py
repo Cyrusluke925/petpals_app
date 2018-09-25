@@ -137,7 +137,9 @@ def profile_create(request):
 
 @login_required
 def feed(request): 
+    print(request.method)
     if request.method == 'POST':
+        print('its a post')
         form = CommentForm(request.POST)
         created_at = timezone.datetime.now()
         if form.is_valid():

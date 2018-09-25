@@ -25,16 +25,16 @@
                     {{post.caption}}
 
                     <article class="commentsAndLikes">
-                        <form id='commentForm' method='POST' enctype="multipart/form-data" type="submit">
+                        <!-- <form id='commentForm' method='POST' enctype="multipart/form-data" type="submit"> -->
                             {% csrf_token %}
-                            <input type='text' id="commentBox" name='content' placeholder="Add Comment">
+                            <input type='text' id="commentBox" data-id={{post.id}} data-csrf="{% csrf_token %}" name='content' placeholder="Add Comment">
                             <input type='hidden' name='post_id' required id='id_post_id' value={{post.id}} />
-                            </form>
+                            <!-- </form> -->
                             <div class="commentsContainer">
-                            {% for comment in post.comments.all %}
                         
-                                <ul class='commentList'>
-                                    <li class='comment'>
+                                <ul class='commentList' id='{{post.id}}_cl'>
+                                    {% for comment in post.comments.all %}
+                                        <li class='comment' >
                                         <article class='theComment'>
                                             <p class='commentUser' data-id='{{comment.user}}'><a href={% url 'other_profile' pk=comment.user.id %}>{{ comment.user }}</a></p><p class='commentContent' data-id='{{comment.post.id}}' > {{ comment.content }}</p>
                                         </article>
